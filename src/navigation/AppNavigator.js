@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useMemo} from 'react';
 import {View, Text} from 'react-native';
+import io from 'socket.io-client';
 import {
   NavigationContainer,
   useNavigation,
@@ -495,7 +496,8 @@ function TabsNavigator({route}) {
           headerShown: false,
           tabBarIcon: ({focused}) => (
             <MaterialCommunityIcons
-              name="clipboard"
+              name="card"
+              // name="inventory"
               size={24}
               color={focused ? '#056AD0' : '#28323E'}
             />
@@ -548,6 +550,19 @@ function MainApp({navigation}) {
   const name = useSelector(state => state.book.doctorEnquired);
   const qty = useSelector(state => state.notification.quantity);
   const dispatch = useDispatch();
+
+  const userId = useSelector(state => state.user.userId);
+  const appointmentId = useSelector(state => state.chat.appointmentId);
+  const socket = io('https://socketrahilbe.herokuapp.com/', {
+    query: {userId: userId, appointmentId: appointmentId},
+    reconnectionDelay: 1000,
+    reconnection: true,
+    reconnectionAttempts: 10,
+    transports: ['websocket'],
+    agent: false,
+    upgrade: false,
+    rejectUnauthorized: false,
+  });
 
   return (
     <Stack.Navigator>
@@ -718,6 +733,12 @@ function MainApp({navigation}) {
                 size={24}
                 color={'#990b19'}
                 onPress={() => {
+                  socket.emit('disconnect', {
+                    status: true,
+                    from: 456,
+                    to: 123,
+                    id: 123,
+                  });
                   navigation.navigate('RateSession');
                 }}
               />

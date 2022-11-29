@@ -9,10 +9,7 @@ import {FlipInEasyX} from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  setSessionType,
-  setAvailSessions,
-} from '../store/reducers/payReducer';
+import {setSessionType, setAvailSessions} from '../store/reducers/payReducer';
 import RazorpayCheckout from 'react-native-razorpay';
 import axios from 'axios';
 
@@ -21,10 +18,16 @@ const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 
 const windowHeight = Dimensions.get('window').height;
 
-const PaySessionCarousel = ({navigation, setModalVisible, setAmount, setOrderId, setSessions, setActive}) => {
+const PaySessionCarousel = ({
+  navigation,
+  setModalVisible,
+  setAmount,
+  setOrderId,
+  setSessions,
+  setActive,
+}) => {
   const [activeSlide, setActiveSlide] = useState(1);
   const dispatch = useDispatch();
-
 
   const data = [
     {
@@ -81,18 +84,18 @@ const PaySessionCarousel = ({navigation, setModalVisible, setAmount, setOrderId,
             setSessions(item.sessions);
             dispatch(setSessionType('persession'));
             try {
-                const result = await axios.post(
-                  'https://rihal-be.herokuapp.com/api/razorpay/createOrder',
-                  {
-                    amount: (item.price + (item.price/100)*18) * 100,
-                  },
-                );
-                console.log(result.data);
-                const {amount, id, currency} = result.data;
-                setOrderId(id);
-              } catch (err) {
-                alert(err);
-              }
+              const result = await axios.post(
+                'https://rihal-be.herokuapp.com/api/razorpay/createOrder',
+                {
+                  amount: (item.price + (item.price / 100) * 18) * 100,
+                },
+              );
+              console.log(result.data);
+              const {amount, id, currency} = result.data;
+              setOrderId(id);
+            } catch (err) {
+              alert(err);
+            }
           }}
           style={styles.btnCarousel}>
           <Text style={styles.btnCarouselText}>Buy Now</Text>

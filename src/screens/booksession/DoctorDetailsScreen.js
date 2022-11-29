@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  Alert,
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import FocusAwareStatusBar from '../../components/FocusAwareStatusBar';
@@ -69,16 +70,19 @@ const reviewersList = [
 
 export default function DoctorDetailsScreen({route, navigation}) {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user);
   const docEnquired = useSelector(state => state.book.doctorEnquired);
   const docSelectedObj = useSelector(state => state.book.docSelectedObj);
   console.log('doctorSelectedObj: ', docSelectedObj);
   console.log('doctorSelectedObj: ', docSelectedObj.rating);
   console.log('docEnquired: ', docEnquired);
+
   let now = moment();
   const {disableBookLater} = route.params;
   function timer(date, now) {
     return date.diff(now, 'minutes', true).toFixed(2);
   }
+  console.log(user, '\n\n\n<<<this is user\n\n');
   return (
     <SafeAreaView
       style={[
@@ -190,9 +194,13 @@ export default function DoctorDetailsScreen({route, navigation}) {
           mode="contained"
           uppercase={false}
           onPress={() => {
-            navigation.navigate('ChooseAppointment', {
-              disableBookLater: disableBookLater,
-            });
+            if (user.session > 0) {
+              navigation.navigate('ChooseAppointment', {
+                disableBookLater: disableBookLater,
+              });
+            } else {
+              Alert.alert('Insufficient session.\nPlease buy the session.');
+            }
           }}
           style={styles.btnOnboard}>
           <Text style={styles.btnText}>Book a session</Text>

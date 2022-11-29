@@ -18,7 +18,7 @@ const windowWidth = Dimensions.get('window').width;
 const ConfirmSlotScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [daySelected, setDaySelected] = useState(0);
-  const [dateSelected, setDateSelected] = useState("");
+  const [dateSelected, setDateSelected] = useState('');
   const now = moment();
   const [timestamp, setTimestamp] = useState(now);
   const currDoc = useSelector(state => state.book.docSelectedObj);
@@ -58,7 +58,11 @@ const ConfirmSlotScreen = ({navigation}) => {
     for (var i = 0; i <= daysToAdd; i++) {
       var currentDate = new Date();
       currentDate.setDate(startDate.getDate() + i);
-      aryDates.push({timestamp: currentDate, date: currentDate.getDate(), day: currentDate.getDay()});
+      aryDates.push({
+        timestamp: currentDate,
+        date: currentDate.getDate(),
+        day: currentDate.getDay(),
+      });
     }
     return aryDates;
   }
@@ -101,7 +105,10 @@ const ConfirmSlotScreen = ({navigation}) => {
             dispatch: dispatch,
           }),
         );
-        navigation.navigate("SlotConfirmed", {timestamp: timestamp, slot: slots[slotSelected]});
+        navigation.navigate('SlotConfirmed', {
+          timestamp: timestamp,
+          slot: slots[slotSelected],
+        });
       })
       .catch(function (error) {
         console.log('doctors/postDoctorsAvaialibility error', error);
@@ -126,8 +133,11 @@ const ConfirmSlotScreen = ({navigation}) => {
                 updateSlots(item.day, currDoc.availability);
                 setAvailability2dMatrix(currDoc.availability);
               }}
-              style={item.date === dateSelected ? styles.dateContainerActive : styles.dateContainer}
-              >
+              style={
+                item.date === dateSelected
+                  ? styles.dateContainerActive
+                  : styles.dateContainer
+              }>
               <Text style={styles.dateDay}>{item.date}</Text>
               <Text style={styles.dateDay}>{day[item.day]}</Text>
             </TouchableOpacity>
@@ -152,8 +162,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][0]
-                  ? (selectedIndex === daySelected + ' ' + 0
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 0
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               {' '}
@@ -175,8 +186,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][1]
-                  ? (selectedIndex === daySelected + ' ' + 1
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 1
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               10:00
@@ -197,8 +209,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][2]
-                  ? (selectedIndex === daySelected + ' ' + 2
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 2
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               11:00
@@ -222,8 +235,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][3]
-                  ? (selectedIndex === daySelected + ' ' + 3
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 3
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               12:00
@@ -244,8 +258,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][4]
-                  ? (selectedIndex === daySelected + ' ' + 4
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 4
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               1:00
@@ -266,8 +281,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][5]
-                  ? (selectedIndex === daySelected + ' ' + 5
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 5
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               2:00
@@ -291,8 +307,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][6]
-                  ?  (selectedIndex === daySelected + ' ' + 6
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 6
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               3:00
@@ -313,8 +330,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][7]
-                  ? (selectedIndex === daySelected + ' ' + 7
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 7
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               4:00
@@ -335,8 +353,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][8]
-                  ? (selectedIndex === daySelected + ' ' + 8
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 8
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               5:00
@@ -360,8 +379,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][9]
-                  ? (selectedIndex === daySelected + ' ' + 9
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 9
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               {' '}
@@ -383,8 +403,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][10]
-                  ? (selectedIndex === daySelected + ' ' + 10
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 10
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               7:00
@@ -405,8 +426,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][11]
-                  ? (selectedIndex === daySelected + ' ' + 11
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 11
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               8:00
@@ -430,8 +452,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][12]
-                  ? (selectedIndex === daySelected + ' ' + 12
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 12
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               9:00
@@ -452,8 +475,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][13]
-                  ? (selectedIndex === daySelected + ' ' + 13
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 13
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               10:00
@@ -474,8 +498,9 @@ const ConfirmSlotScreen = ({navigation}) => {
             <Text
               style={
                 currDoc.availability[daySelected][14]
-                  ? (selectedIndex === daySelected + ' ' + 14
-                  ? styles.dateTextSelected : styles.dateTextActive)
+                  ? selectedIndex === daySelected + ' ' + 14
+                    ? styles.dateTextSelected
+                    : styles.dateTextActive
                   : styles.dateText
               }>
               11:00
@@ -489,8 +514,7 @@ const ConfirmSlotScreen = ({navigation}) => {
             confirmSlot();
           }}
           style={styles.btnOnboard}
-          disabled={dateSelected === ""}
-          >
+          disabled={dateSelected === ''}>
           <Text style={styles.btnText}>Confirm Slot</Text>
         </Button>
       </View>

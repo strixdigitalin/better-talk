@@ -18,8 +18,13 @@ export default function PayScreen({navigation}) {
           rightTitle="Sessions"
           trackBarStyle={{
             borderColor: '#E5E9F0',
-            width: 320,
+            activeBackgroundColor: '#056AD0',
+            inActiveBackgroundColor: '#F5F8FA',
+            width: 300,
+            textAlign: 'center',
             height: 36,
+            paddingHorizontal: 15,
+
             radius: 18,
           }}
           trackBar={{
@@ -27,10 +32,12 @@ export default function PayScreen({navigation}) {
           }}
           thumbButton={{
             width: 160,
+            paddingHorizontal: 15,
             height: 36,
             radius: 18,
             activeBackgroundColor: '#056AD0',
             inActiveBackgroundColor: '#F5F8FA',
+            textAlign: 'center',
           }}
           thumbStyle={{}}
         />
@@ -48,9 +55,11 @@ const styles = StyleSheet.create({
   rootContainer: {
     height: windowHeight,
     backgroundColor: '#FDFDFD',
+    textAlign: 'center',
   },
   toggleContainer: {
     paddingHorizontal: 15,
-    marginLeft: "auto",
+    marginLeft: 'auto',
+    textAlign: 'center',
   },
 });

@@ -3,16 +3,15 @@ import io from 'socket.io-client';
 import {StyleSheet, View, Text, Image, Dimensions} from 'react-native';
 import startappointment from '../../assets/startappointment.png';
 import {Button} from 'react-native-paper';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
 
 const StartAppointmentScreen = ({navigation}) => {
-
-  const userId = useSelector(state=>state.user.userId);
-  const appointmentId = useSelector(state=>state.chat.appointmentId);
+  const userId = useSelector(state => state.user.userId);
+  const appointmentId = useSelector(state => state.chat.appointmentId);
   const socket = io('https://socketrahilbe.herokuapp.com/', {
-    query: {userId: userId, appointmentId:appointmentId },
+    query: {userId: userId, appointmentId: appointmentId},
     reconnectionDelay: 1000,
     reconnection: true,
     reconnectionAttempts: 10,
@@ -35,11 +34,15 @@ const StartAppointmentScreen = ({navigation}) => {
   return (
     <View style={styles.rootContainer}>
       <Image source={startappointment} style={styles.appointmentImage} />
-      <Text style={styles.arrived}>Your doctor has arrived. Please start the session.</Text>
+      <Text style={styles.arrived}>
+        Your doctor has arrived. Please start the session.
+      </Text>
       <Button
         mode="contained"
         uppercase={false}
-        onPress={() => {startAppointmentHandler();}}
+        onPress={() => {
+          startAppointmentHandler();
+        }}
         style={styles.btnOnboard}>
         <Text style={styles.btnText}>Start Appointment</Text>
       </Button>
@@ -48,32 +51,30 @@ const StartAppointmentScreen = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-    rootContainer: {
-      height: windowHeight,
-      backgroundColor: '#FDFDFD',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      paddingHorizontal: 15,
-      paddingTop: 55,
-    },
-    appointmentImage: {
-
-    },
-    btnOnboard: {
-      backgroundColor: '#323F4D',
-      height: 46,
-      borderRadius: 8,
-      paddingVertical: 5,
-      width: '80%',
-      marginTop: 20,
-    },
-    arrived: {
-        fontFamily: "Inter-Regular",
-        fontSize: 14,
-        lineHeight: 24,
-        color: "#85919D",
-    },
+  rootContainer: {
+    height: windowHeight,
+    backgroundColor: '#FDFDFD',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    paddingTop: 55,
+  },
+  appointmentImage: {},
+  btnOnboard: {
+    backgroundColor: '#323F4D',
+    height: 46,
+    borderRadius: 8,
+    paddingVertical: 5,
+    width: '80%',
+    marginTop: 20,
+  },
+  arrived: {
+    fontFamily: 'Inter-Regular',
+    fontSize: 14,
+    lineHeight: 24,
+    color: '#85919D',
+  },
 });
 
 export default StartAppointmentScreen;

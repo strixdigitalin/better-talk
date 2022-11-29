@@ -99,6 +99,12 @@ const AppointmentWaitingScreen = ({navigation}) => {
       setReqAccepted(true);
     });
   }, [socket]);
+  useEffect(() => {
+    socket.on('disconnect', ({message, from, to, fromDoc}) => {
+      console.log('disconnect');
+      setReqAccepted(true);
+    });
+  }, [socket]);
 
   useEffect(() => {
     if (reqAccepted) {

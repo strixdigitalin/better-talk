@@ -2,9 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Dimensions, Image} from 'react-native';
 import splashlogo from '../../assets/splashlogo.png';
 import {useDispatch, useSelector} from 'react-redux';
-import {getUserIdAsync, getDoctorsAsync, getUserByIdAsync} from '../../store/services/services';
+import {
+  getUserIdAsync,
+  getDoctorsAsync,
+  getUserByIdAsync,
+} from '../../store/services/services';
 import SplashScreen from 'react-native-splash-screen';
-import { setiIsLoggedIn } from '../../store/reducers/userReducer';
+import {setiIsLoggedIn} from '../../store/reducers/userReducer';
 
 const windowHeight = Dimensions.get('window').height;
 

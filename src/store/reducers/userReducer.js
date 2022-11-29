@@ -14,7 +14,9 @@ export const userSlice = createSlice({
     upcomingApp: [],
     isLoggedIn: false,
     userId: null,
+    session: 0,
     loading: true,
+    image: '',
   },
   reducers: {
     setName: (state, action) => {
@@ -53,6 +55,12 @@ export const userSlice = createSlice({
         location: action.payload,
       };
     },
+    setSession: (state, action) => {
+      return {
+        ...state,
+        session: action.payload,
+      };
+    },
     setFreeSession: (state, action) => {
       return {
         ...state,
@@ -72,11 +80,17 @@ export const userSlice = createSlice({
       };
     },
     setUserId: (state, action) => {
-        return {
-          ...state,
-          userId: action.payload,
-        };
-      },
+      return {
+        ...state,
+        userId: action.payload,
+      };
+    },
+    setImage: (state, action) => {
+      return {
+        ...state,
+        image: action.payload,
+      };
+    },
   },
   extraReducers: {
     [postUserAsync.fulfilled]: (state, action) => {
@@ -85,8 +99,7 @@ export const userSlice = createSlice({
     [postUserAsync.rejected]: (state, action) => {
       console.log('action.error.message: ', action.error.message);
     },
-    [postUserAsync.pending]: (state, action) => {
-    },
+    [postUserAsync.pending]: (state, action) => {},
     [getUserIdAsync.fulfilled]: (state, action) => {
       console.log('getUserIdAsync action:payload ', action.payload);
       state.loading = false;
@@ -94,13 +107,29 @@ export const userSlice = createSlice({
     [getUserIdAsync.rejected]: (state, action) => {
       state.error = action.error.message;
       state.loading = false;
-      console.log('getUserIdAsync action.error.message: ', action.error.message);
+      console.log(
+        'getUserIdAsync action.error.message: ',
+        action.error.message,
+      );
     },
     [getUserIdAsync.pending]: (state, action) => {
       state.loading = true;
     },
-  }
+  },
 });
 
-export const { setName, setiIsLoggedIn,setQualification, setAge, setFreeSession, setGender, setMedHistory, setUpcomingApp, setLocation, setUserId } = userSlice.actions;
+export const {
+  setName,
+  setiIsLoggedIn,
+  setQualification,
+  setSession,
+  setAge,
+  setFreeSession,
+  setGender,
+  setMedHistory,
+  setUpcomingApp,
+  setLocation,
+  setUserId,
+  setImage,
+} = userSlice.actions;
 export default userSlice.reducer;

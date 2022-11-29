@@ -21,8 +21,8 @@ import RazorpayCheckout from 'react-native-razorpay';
 import axios from 'axios';
 import {create} from 'react-test-renderer';
 import {setMinsRem} from '../../store/reducers/chatReducer';
-import { postPurchaseAsync } from '../../store/services/payServices';
-import { postNotificationAsync } from '../../store/services/notificationservices';
+import {postPurchaseAsync} from '../../store/services/payServices';
+import {postNotificationAsync} from '../../store/services/notificationservices';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -42,7 +42,7 @@ export default function PayPerMin({navigation}) {
   console.log('name: ', name);
   console.log('minsRem: in paypermin ', minsRem);
   const dispatch = useDispatch();
-  const appType = "permins";
+  const appType = 'permins';
 
   function payMinBalUpdater() {
     console.log(' payMinBalUpdater balance: ', balance);
@@ -50,7 +50,9 @@ export default function PayPerMin({navigation}) {
     let temp = balance + packSelected;
     console.log(' dispatch(setBalance temp: ', temp);
     dispatch(setBalance(temp));
-    dispatch(postPurchaseAsync({name: name, appType: appType , type: packSelected}));
+    dispatch(
+      postPurchaseAsync({name: name, appType: appType, type: packSelected}),
+    );
   }
 
   function availMinUpdater() {
@@ -74,8 +76,8 @@ export default function PayPerMin({navigation}) {
       const {amount, id, currency} = result.data;
       setOrderId(id);
       setAmountPayed(amount);
-      setAmtToPay(amt/100);
-      setPackSelected(amt/100);
+      setAmtToPay(amt / 100);
+      setPackSelected(amt / 100);
       setModalVisible(true);
     } catch (err) {
       alert(err);
@@ -91,7 +93,7 @@ export default function PayPerMin({navigation}) {
             width: '60%',
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'space-evenly',
+            justifyContent: 'center',
           }}>
           <Image source={wallet} style={styles.image} />
           <View>
@@ -99,11 +101,13 @@ export default function PayPerMin({navigation}) {
             <Text style={styles.lightText}>Cost - {'\u20B9'}20/min</Text>
           </View>
         </View>
-        <View style={styles.verticalDivider} />
-        <Text style={styles.boldText}>
-          {'\u20B9'}
-          {balance}
-        </Text>
+        <View style={{...styles.verticalDivider}} />
+        <View style={{width: '40%', alignItems: 'center'}}>
+          <Text style={styles.boldText}>
+            {'\u20B9'}
+            {balance}
+          </Text>
+        </View>
       </View>
       <Divider />
       <View style={styles.payCards}>
@@ -267,7 +271,13 @@ export default function PayPerMin({navigation}) {
                     // alert(`Success: ${data.razorpay_payment_id}`);
                     payMinBalUpdater();
                     availMinUpdater();
-                    dispatch(postNotificationAsync({id: userId, content: amountPayed, type: "payment" }));
+                    dispatch(
+                      postNotificationAsync({
+                        id: userId,
+                        content: amountPayed,
+                        type: 'payment',
+                      }),
+                    );
                     if (chatOngoing) {
                       navigation.navigate('MyHome', {screen: 'ChatDoctor'});
                     } else {
@@ -318,7 +328,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
     borderLeftWidth: 1,
     borderLeftColor: '#E5E9F0',
-    marginHorizontal: 25,
+    // marginHorizontal: 25,
   },
   boldText: {
     fontFamily: 'Inter-Medium',

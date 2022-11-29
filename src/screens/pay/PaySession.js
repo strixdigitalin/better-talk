@@ -86,14 +86,38 @@ export default function PaySession({navigation}) {
             width: '60%',
             display: 'flex',
             flexDirection: 'row',
-            justifyContent: 'space-evenly',
+            justifyContent: 'center',
           }}>
           <View>
             <Text style={styles.availText}>Available Sessions</Text>
           </View>
+          <View style={styles.verticalDivider} />
         </View>
         <View style={styles.verticalDivider} />
-        <Text style={styles.boldText}>{availSessions}</Text>
+        <View style={{width: '40%'}}>
+          <Text
+            style={{
+              ...styles.boldText,
+              // ...styles.availText,
+              // flexDirection: 'row',
+              // justifyContent: 'center',
+              // textAlign: 'center',
+              // color: '#000',
+            }}>
+            {availSessions}
+          </Text>
+        </View>
+        {/* <Text
+          style={{
+            ...styles.boldText,
+            // ...styles.availText,
+            // flexDirection: 'row',
+            // justifyContent: 'center',
+            // textAlign: 'center',
+            // color: '#000',
+          }}>
+          {availSessions}
+        </Text> */}
       </View>
       <Divider />
       <View style={styles.scrollContainer}>
@@ -222,7 +246,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 15,
+    // borderWidth: 2,
+    // paddingHorizontal: 15,
     height: 48,
   },
   availText: {
@@ -233,17 +258,28 @@ const styles = StyleSheet.create({
   },
   verticalDivider: {
     height: '100%',
-    width: 1,
+    // width: '100%',
     borderRightWidth: 0,
     borderLeftWidth: 1,
     borderLeftColor: '#E5E9F0',
-    marginHorizontal: 25,
+    // borderLeftColor: '#000',
+    // marginHorizontal: 25,
+    // textAlign: 'center',
+    // margin: 'auto',
   },
   boldText: {
     fontFamily: 'Inter-Medium',
-    fontSize: 18,
+    fontSize: 25,
+    // width: '40%',
     lineHeight: 26,
+    textAlign: 'center',
+    // borderWidth: 1,
+
     color: '#056AD0',
+    // margin: 'auto',
+    // flexDirection: 'row',
+    // justifyContent: 'center',
+    // alignContent: 'center',
   },
   lightText: {
     fontFamily: 'Inter-Regular',

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useRef, useState, useEffect } from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {
   Animated,
   StyleSheet,
@@ -13,8 +13,10 @@ import {
 // https://reactjs.org/docs/typechecking-with-proptypes.html
 
 const COLOR_DEFAULT = {
-  trackActiveBg: '#aacfcf',
-  trackInActiveBg: '#679b9b',
+  // trackActiveBg: '#aacfcf',
+  trackActiveBg: '#ffffff',
+  // trackInActiveBg: '#679b9b',
+  trackInActiveBg: '#056AD0',
   textActive: '#ffffff',
   textInActive: '#888888',
   thumbActive: '#fde2e2',
@@ -33,7 +35,7 @@ const SIZE_DEFAULT = {
   borderWidth: 0,
 };
 
-const ThumbChildren = (props) => {
+const ThumbChildren = props => {
   const {
     toggleValue,
     activeColor,
@@ -89,7 +91,7 @@ ThumbChildren.defaultProps = {
   disabledTitleStyle: null,
 };
 
-const ReactNativeToggleElement = (props) => {
+const ReactNativeToggleElement = props => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const {
@@ -108,20 +110,20 @@ const ReactNativeToggleElement = (props) => {
     thumbStyle,
     leftTitle,
     rightTitle,
-    animationDuration
+    animationDuration,
   } = props;
 
   const [toggleValue, setToggleValue] = useState(value);
 
   useEffect(() => {
-    updateThumbButton(toggleValue)
-  }, [toggleValue])
+    updateThumbButton(toggleValue);
+  }, [toggleValue]);
 
   useEffect(() => {
     setToggleValue(value);
-  }, [value])
+  }, [value]);
 
-  const updateThumbButton = (toggleState) => {
+  const updateThumbButton = toggleState => {
     const thumbBtnWidth = thumbButton.width ?? SIZE_DEFAULT.thumbBtnWidth;
     const trackBarW = trackBar.width ?? SIZE_DEFAULT.trackBarWidth;
     const distance = trackBarW - thumbBtnWidth;
@@ -135,7 +137,7 @@ const ReactNativeToggleElement = (props) => {
   };
 
   const handleToggle = () => {
-    const { onPress } = props;
+    const {onPress} = props;
     const val = !toggleValue;
     setToggleValue(val);
     onPress(val);
@@ -179,7 +181,7 @@ const ReactNativeToggleElement = (props) => {
     let activeBg = '';
     let inActiveBg = '';
 
-    const { activeBackgroundColor, inActiveBackgroundColor } = thumbButton;
+    const {activeBackgroundColor, inActiveBackgroundColor} = thumbButton;
 
     activeBg = activeBackgroundColor ?? COLOR_DEFAULT.thumbActive;
     inActiveBg = inActiveBackgroundColor ?? COLOR_DEFAULT.thumbInActive;
@@ -225,7 +227,7 @@ const ReactNativeToggleElement = (props) => {
             testID="ThumbButton"
             style={StyleSheet.flatten([
               {
-                transform: [{ translateX: fadeAnim }],
+                transform: [{translateX: fadeAnim}],
                 zIndex: -1,
                 backgroundColor: thumbButtonBackgroundColor(),
               },
@@ -257,7 +259,7 @@ const ReactNativeToggleElement = (props) => {
       </TouchableOpacity>
     </View>
   );
-}
+};
 
 ReactNativeToggleElement.propTypes = {
   onPress: PropTypes.func,
@@ -298,7 +300,7 @@ ReactNativeToggleElement.propTypes = {
   thumbStyle: ViewPropTypes.style,
   leftTitle: PropTypes.string,
   rightTitle: PropTypes.string,
-  animationDuration: PropTypes.number
+  animationDuration: PropTypes.number,
 };
 
 ReactNativeToggleElement.defaultProps = {
@@ -337,7 +339,7 @@ ReactNativeToggleElement.defaultProps = {
     color: COLOR_DEFAULT.disable,
   },
   thumbStyle: null,
-  animationDuration: 350
+  animationDuration: 350,
 };
 
 const styles = StyleSheet.create({
@@ -345,8 +347,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  trackBar: (trackBar) => {
-    const { width, height, radius, borderWidth } = trackBar;
+  trackBar: trackBar => {
+    const {width, height, radius, borderWidth} = trackBar;
     const borderW = borderWidth ?? 0;
     const trackBarW = width ?? SIZE_DEFAULT.trackBarWidth;
     const trackBarH = height ?? SIZE_DEFAULT.trackBarHeight;
@@ -373,7 +375,7 @@ const styles = StyleSheet.create({
   },
   thumbButton: (thumbButton, trackBarBorderWidth) => {
     const borderW = trackBarBorderWidth ?? 0;
-    let { width, height, radius } = thumbButton;
+    let {width, height, radius} = thumbButton;
     const thumbBtnW = width ?? SIZE_DEFAULT.thumbBtnWidth;
     const thumbBtnH = height ?? SIZE_DEFAULT.thumbBtnHeight;
     const thumbBtnRadius = radius ?? SIZE_DEFAULT.thumbBtnRadius;

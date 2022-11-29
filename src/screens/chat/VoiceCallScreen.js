@@ -35,9 +35,9 @@ export default function VoiceCallScreen() {
 
   useEffect(() => {
     fetchToken(uid, channelName, 1);
-    requestCameraAndAudioPermission().then(() => {
-      // initEngine().then(() => {});
-    });
+    // requestCameraAndAudioPermission().then(() => {
+    //   // initEngine().then(() => {});
+    // });
   }, []);
 
   const initEngine = async () => {
@@ -64,11 +64,10 @@ export default function VoiceCallScreen() {
   async function fetchToken(uid, channelName, tokenRole) {
     fetch(`${tokenUrl}/rtc/${channelName}/publisher/uid/${uid}`)
       .then(function (response) {
-        response.json().then((data) => {
+        response.json().then(data => {
           setToken(data.rtcToken);
           console.log('data.rtcToken: ', data.rtcToken);
         });
-
       })
       .catch(function (error) {
         console.log('fetchToken', error);

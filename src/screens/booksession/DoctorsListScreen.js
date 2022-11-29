@@ -180,6 +180,15 @@ const DoctorsListScreen = ({navigation}) => {
     setItemsToRender(displayDoctors);
   }, [loading, displayDoctors]);
 
+  const showRating = arr => {
+    let rating = 0;
+    arr.map(item => {
+      rating = +rating + +item.rating;
+    });
+    console.log('\n\n\n Ratings \n', rating, '<<<<for rating');
+
+    return parseInt(rating / arr.length);
+  };
   return (
     <View style={styles.listContainer}>
       <Text style={styles.subTitle}>Hope you are doing well today</Text>
@@ -280,7 +289,12 @@ const DoctorsListScreen = ({navigation}) => {
       </View>
       <ScrollView>
         <View style={{height: scrollLength}}>
-          {itemsToRender.map(doctor => {   
+          {itemsToRender.map(doctor => {
+            console.log(
+              '\n\n\nall doctors --->,',
+              doctor,
+              '<<< these are doctors',
+            );
             return (
               <TouchableOpacity
                 style={styles.docContainer}
@@ -295,13 +309,17 @@ const DoctorsListScreen = ({navigation}) => {
                   dispatch(setDocSelectedObj(doctor));
                 }}>
                 {/* <ImageBackground source={doctor} resizeMode="cover" style={styles.doctorImage} /> */}
-                <Image source={dummydoc} style={styles.doctorImage} />
+                <Image
+                  source={doctor.profile ? doctor.profile : dummydoc}
+                  style={styles.doctorImage}
+                />
                 <View style={styles.detailsContainer}>
                   <View style={{display: 'flex', flexDirection: 'row'}}>
                     <Text style={styles.heading2}>{doctor.name}</Text>
                     <AirbnbRating
+                      // count={+doctor.rating}
                       count={5}
-                      defaultRating={5}
+                      defaultRating={showRating(doctor.rating)}
                       showRating={false}
                       size={14}
                       isDisabled={true}
@@ -310,9 +328,16 @@ const DoctorsListScreen = ({navigation}) => {
                   </View>
                   <Text style={styles.subheading2}>{doctor.qualification}</Text>
                   <View style={{display: 'flex', flexDirection: 'row'}}>
-                    <View style={doctor.loggedIn === "Online" ? styles.greendot : styles.reddot}></View>
-                    <Text style={styles.subheading2}>Available in &nbsp;</Text>
-                    <Text style={styles.subheading3}>{doctor.loggedIn === "Online" ? 5 : 60}&nbsp;mins</Text>
+                    <View
+                      style={
+                        doctor.isAvailable ? styles.greendot : styles.reddot
+                      }></View>
+                    <Text style={styles.subheading2}>Available </Text>
+                    <Text style={styles.subheading3}>
+                      {!doctor.isAvailable && (
+                        <Text> in {doctor.minutes} mins</Text>
+                      )}
+                    </Text>
                   </View>
                 </View>
                 <View style={styles.arrContainer2}>
