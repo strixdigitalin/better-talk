@@ -71,6 +71,7 @@ const reviewersList = [
 export default function DoctorDetailsScreen({route, navigation}) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
+  const availSessions = useSelector(state => state.pay.availSessions);
   const docEnquired = useSelector(state => state.book.doctorEnquired);
   const docSelectedObj = useSelector(state => state.book.docSelectedObj);
   console.log('doctorSelectedObj: ', docSelectedObj);
@@ -194,7 +195,8 @@ export default function DoctorDetailsScreen({route, navigation}) {
           mode="contained"
           uppercase={false}
           onPress={() => {
-            if (user.session > 0) {
+            console.log(user, '<<<this is user at session');
+            if (availSessions > 0) {
               navigation.navigate('ChooseAppointment', {
                 disableBookLater: disableBookLater,
               });

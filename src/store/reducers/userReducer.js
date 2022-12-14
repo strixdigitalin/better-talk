@@ -1,6 +1,22 @@
 import {createSlice} from '@reduxjs/toolkit';
 import React from 'react';
 import {postUserAsync, getUserIdAsync} from '../services/services';
+
+const tempData = {
+  age: 21,
+  freeSession: false,
+  gender: '',
+  isAvailable: false,
+  location: 'Bangalore',
+  medHistory: 'Issue\n',
+  minutes: '0',
+  name: 'Test 85',
+  qualification: 'Professor',
+  sessions: '0',
+  upcomingApp: [],
+  userId: '639960855e84e3449b3e224f',
+};
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
@@ -13,7 +29,7 @@ export const userSlice = createSlice({
     location: '',
     upcomingApp: [],
     isLoggedIn: false,
-    userId: null,
+    userId: '639960855e84e3449b3e224f',
     session: 0,
     loading: true,
     image: '',
@@ -80,6 +96,7 @@ export const userSlice = createSlice({
       };
     },
     setUserId: (state, action) => {
+      console.log('setuserId', action.payload);
       return {
         ...state,
         userId: action.payload,

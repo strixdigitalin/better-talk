@@ -2,7 +2,11 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {setDoctors, setLoading} from '../reducers/docReducer';
 
-export const STRIX_URL = 'https://better-talk-strix-backend.herokuapp.com';
+// http://ec2-43-204-216-211.ap-south-1.compute.amazonaws.com:5000/
+
+// export const STRIX_URL = 'https://better-talk-strix-backend.herokuapp.com';
+export const STRIX_URL =
+  'http://ec2-43-204-216-211.ap-south-1.compute.amazonaws.com:5000';
 import {
   setUserId,
   setName,
@@ -53,7 +57,7 @@ export const getUserByIdAsync = createAsyncThunk(
   ({id, dispatch}) => {
     console.log('\n\n\n id of the user--->>>> \n\n', id, '\n\n\n');
     return axios
-      .get(`https://rihal-be.herokuapp.com/api/users/${id}`)
+      .get(STRIX_URL + `/api/users/${id}`)
       .then(function (response) {
         console.log(' getUserByIdAsync response: ', response.data);
         // console.log(' getUserByIdAsync response: data', response.data.age);
@@ -115,29 +119,36 @@ export const postUserAsync = createAsyncThunk(
     sessions,
     minutes,
   }) => {
-    return axios
-      .post('https://rihal-be.herokuapp.com/api/users', {
-        name: name,
-        qualification: qualification,
-        age: age,
-        gender: gender,
-        location: location,
-        medHistory: medHistory,
-        freeSession: freeSession,
-        upcomingApp: upcomingApp,
-        sessions: sessions,
-        minutes: minutes,
-      })
-      .then(function (response) {
-        console.log('response: message', response.data.message);
-        console.log('response: ', response.data);
-        console.log('response: id', response.data.data._id);
-        saveId(response.data.data._id);
-        dispatch(setUserId(response.data.data._id));
-      })
-      .catch(function (error) {
-        console.log('error: ', error);
-      });
+    console.log('callingpostuserasync------>');
+    return (
+      axios
+        // .post('https://rihal-be.herokuapp.com/api/users', {
+        .post(STRIX_URL + '/api/users', {
+          name: name,
+          qualification: qualification,
+          age: age,
+          gender: gender,
+          location: location,
+          medHistory: medHistory,
+          freeSession: freeSession,
+          upcomingApp: upcomingApp,
+          sessions: sessions,
+          minutes: minutes,
+        })
+        .then(function (response) {
+          console.log('response: message', response.data.message);
+          console.log('response: ', response.data);
+          console.log('response: id', response.data.data._id);
+
+          // return null;
+          saveId(response.data.data._id, response.data.data.name);
+          dispatch(setUserId(response.data.data._id));
+          // console.log("datasavedinasyncand")
+        })
+        .catch(function (error) {
+          console.log('error: ', error);
+        })
+    );
   },
 );
 
@@ -150,7 +161,7 @@ export const getDoctorsAsync = createAsyncThunk(
         .get(STRIX_URL + '/api/doctors')
         .then(function (response) {
           // console.log(' getDoctorsAsync response: ', response);
-          console.log('\n\n\n\n getDoctorsAsync response: data', response.data);
+          console.log('getDoctorsAsync response: data', response.data);
           dispatch(setDoctors(response.data));
           dispatch(setLoading(false));
         })
@@ -167,7 +178,8 @@ export const getAppointmentAsync = createAsyncThunk(
     const id = useSelector(state => state.doc.appointmentId);
     return axios({
       method: 'get',
-      url: `https://rihal-be.herokuapp.com/api/appointments/accept/${id}`,
+      // url: `https://rihal-be.herokuapp.com/api/appointments/accept/${id}`,
+      url: STRIX_URL + `/api/appointments/accept/${id}`,
     })
       .then(function (response) {
         console.log('response: message', response.data.acceptStatus);
@@ -186,7 +198,7 @@ export const startAppointmentAsync = createAsyncThunk(
     const id = useSelector(state => state.doc.appointmentId);
     return axios({
       method: 'put',
-      url: `https://rihal-be.herokuapp.com/api/appointments/${id}`,
+      url: STRIX_URL + `/api/appointments/${id}`,
     })
       .then(function (response) {
         console.log('response: message', response.data.message);
@@ -212,27 +224,43 @@ export const postAppointmentAsync = createAsyncThunk(
     appointmentType,
     dispatch,
   }) => {
-    return axios
-      .post('https://rihal-be.herokuapp.com/api/appointments', {
-        from: from,
-        to: to,
-        fromName: fromName,
-        time: time,
-        acceptStatus: acceptStatus,
-        startStatus: startStatus,
-        appointmentType: appointmentType,
-      })
-      .then(function (response) {
-        console.log(
-          'response: postAppointmentAsync message data._id',
-          response.data.data._id,
-        );
-        console.log('response: postAppointmentAsync ', response.data);
-        dispatch(setAppointmentId(response.data.data._id));
-      })
-      .catch(function (error) {
-        console.log('error:postAppointmentAsync ', error);
-      });
+    console.log(
+      'creating appointment',
+      from,
+      to,
+      fromName,
+      acceptStatus,
+      startStatus,
+      time,
+      appointmentType,
+      dispatch,
+    );
+    // return null;
+
+    return (
+      axios
+        // .post('https://rihal-be.herokuapp.com/api/appointments', {
+        .post(STRIX_URL + '/api/appointments', {
+          from: from,
+          to: to,
+          fromName: fromName,
+          time: time,
+          acceptStatus: acceptStatus,
+          startStatus: startStatus,
+          appointmentType: appointmentType,
+        })
+        .then(function (response) {
+          console.log(
+            'response: postAppointmentAsync message data._id',
+            response.data.data._id,
+          );
+          console.log('response: postAppointmentAsync ', response.data);
+          dispatch(setAppointmentId(response.data.data._id));
+        })
+        .catch(function (error) {
+          console.log('error:postAppointmentAsync ', error);
+        })
+    );
   },
 );
 
@@ -240,7 +268,7 @@ export const postRatingAsync = createAsyncThunk(
   'users/postAppointmentAsync',
   ({id, from, rating, date}) => {
     return axios
-      .put(`https://rihal-be.herokuapp.com/api/doctors/ratings/${id}`, {
+      .put(STRIX_URL + `/api/doctors/ratings/${id}`, {
         from: from,
         rating: rating,
         date: date,

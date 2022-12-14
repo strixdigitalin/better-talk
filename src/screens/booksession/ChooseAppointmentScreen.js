@@ -17,6 +17,7 @@ const ChooseAppointmentScreen = ({route, navigation}) => {
   const {disableBookLater} = route.params;
   const docSelected = useSelector(state => state.chat.docSelected);
   const userId = useSelector(state => state.user.userId);
+  const user = useSelector(state => state.user);
   console.log('userId: ', userId);
   const name = useSelector(state => state.user.name);
   const now = moment();
@@ -55,6 +56,7 @@ const ChooseAppointmentScreen = ({route, navigation}) => {
           mode="contained"
           uppercase={false}
           onPress={() => {
+            // console.log(user, '<<<<this is user');
             dispatch(
               postAppointmentAsync({
                 from: userId,
@@ -74,6 +76,8 @@ const ChooseAppointmentScreen = ({route, navigation}) => {
                 type: 'appointment',
               }),
             );
+
+            // navigation.navigate('ChatDoctor');
             navigation.navigate('AppointmentWaiting');
           }}
           style={styles.btnOnboard}

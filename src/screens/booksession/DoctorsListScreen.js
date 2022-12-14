@@ -77,6 +77,7 @@ const DoctorsListScreen = ({navigation}) => {
   const freeUsed = useSelector(state => state.book.freeUsed);
   const scrollLength = itemsToRender.length * 100 + 100;
   const dispatch = useDispatch();
+
   const appointmentsList = [
     {
       id: 1,
@@ -189,6 +190,8 @@ const DoctorsListScreen = ({navigation}) => {
 
     return parseInt(rating / arr.length);
   };
+
+  
   return (
     <View style={styles.listContainer}>
       <Text style={styles.subTitle}>Hope you are doing well today</Text>

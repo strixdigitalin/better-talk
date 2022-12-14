@@ -22,18 +22,19 @@ const windowHeight = Dimensions.get('window').height;
 export default function LoginOtpScreen({route, navigation}) {
   const [confirm, setConfirm] = useState(null);
   const dispatch = useDispatch();
-  const userId = useSelector(state=>state.user.userId);
+  const userId = useSelector(state => state.user.userId);
   const [code, setCode] = useState('');
   const {number} = route.params;
   console.log('number: ', number);
-  const concatNum = "+91" +   number;
-  console.log('concatNum: ', concatNum);  
+  const concatNum = '+91' + number;
+  console.log('concatNum: ', concatNum);
   useEffect(() => {
     signInWithPhoneNumber();
   }, []);
 
   async function signInWithPhoneNumber() {
     //const confirmation = await auth().verifyPhoneNumber('+91 9998887776');
+
     const confirmation = await auth().signInWithPhoneNumber(concatNum);
     console.log('confirmation: ', confirmation);
     setConfirm(confirmation);
@@ -46,6 +47,7 @@ export default function LoginOtpScreen({route, navigation}) {
       const response = await confirm.confirm(code);
       if (response) {
         console.log('response: ', response);
+
         navigation.navigate('OnboardingName');
       }
     } catch (error) {
@@ -71,7 +73,7 @@ export default function LoginOtpScreen({route, navigation}) {
           outlineColor={'#323F4D'}
           placeholderTextColor="#85919D"
           maxLength={10}
-          keyboardType={"number-pad"}
+          keyboardType={'number-pad'}
           style={{
             backgroundColor: '#FBFBFB',
             height: 44,

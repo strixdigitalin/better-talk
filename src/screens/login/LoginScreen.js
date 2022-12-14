@@ -14,8 +14,8 @@ import auth from '@react-native-firebase/auth';
 import loginvecgraphic1 from '../../assets/loginvecgraphic1.png';
 import loginvecgraphic2 from '../../assets/loginvecgraphic2.png';
 import loginvecgraphic3 from '../../assets/loginvecgraphic3.png';
-import { getDoctorsAsync, getUserIdAsync } from '../../store/services/services';
-import { useDispatch } from 'react-redux';
+import {getDoctorsAsync, getUserIdAsync} from '../../store/services/services';
+import {useDispatch} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -27,7 +27,7 @@ export default function LoginScreen({navigation}) {
   async function signInWithPhoneNumber() {
     const confirmation = await auth().signInWithPhoneNumber(text);
     setConfirm(confirmation);
-    navigation.navigate('LoginOtp', { number: text,});
+    navigation.navigate('LoginOtp', {number: text});
   }
 
   return (
@@ -47,7 +47,7 @@ export default function LoginScreen({navigation}) {
           outlineColor={'#323F4D'}
           placeholderTextColor="#85919D"
           maxLength={10}
-          keyboardType={"number-pad"}
+          keyboardType={'number-pad'}
           style={{
             backgroundColor: '#FBFBFB',
             height: 44,
@@ -63,7 +63,10 @@ export default function LoginScreen({navigation}) {
           mode="contained"
           uppercase={false}
           loading={false}
-          onPress={() => navigation.navigate('LoginOtp', { number: text,})}
+          onPress={() => {
+            navigation.navigate('OnboardingName');
+            // navigation.navigate('LoginOtp', { number: text,})
+          }}
           style={styles.btnOnboard}>
           <Text style={styles.btnText}>Send OTP</Text>
         </Button>

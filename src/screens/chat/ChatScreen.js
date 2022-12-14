@@ -30,7 +30,10 @@ import {
   setAvailSessions,
   setBalance,
 } from '../../store/reducers/payReducer';
-import { updateSessionsAsync, updateMinsAsync } from '../../store/services/userServices';
+import {
+  updateSessionsAsync,
+  updateMinsAsync,
+} from '../../store/services/userServices';
 const windowHeight = Dimensions.get('window').height - 60;
 const windowWidth = Dimensions.get('window').width;
 
@@ -50,7 +53,12 @@ const ChatScreen = ({navigation}) => {
     dispatch(setSessionEnd(sessionEnd));
     dispatch(setChatOngoing(true));
     return () => {
-      dispatch(updateSessionsAsync({sessions: availSessions === 0 ? 0 : availSessions - 1, id: userId }));
+      dispatch(
+        updateSessionsAsync({
+          sessions: availSessions === 0 ? 0 : availSessions - 1,
+          id: userId,
+        }),
+      );
       dispatch(setAvailSessions(availSessions === 0 ? 0 : availSessions - 1));
     };
   }, []);
@@ -75,61 +83,82 @@ const ChatScreen = ({navigation}) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior="height"
-      style={styles.rootContainer}
-      keyboardVerticalOffset={Header.HEIGHT + 10}>
-      {mode === 'chat' ? (
-        <ScrollView>
-          <View style={styles.msgs}>
-            <ChatBox
-              msgsToRender={messages}
-              typing={typing}
-              whoTyping={whoTyping}
-            />
-            <View style={styles.inputContainer}>
-              <TouchableOpacity>
-                <Feather name="smile" size={20} color="#7C98B6" />
-              </TouchableOpacity>
-              <TextInput
-                style={styles.input}
-                color="#7C98B6"
-                value={pvtMsg}
-                placeholder="Write a message..."
-                onChangeText={text => {
-                  changeTxtHandler(text);
-                }}
+    <>
+      <View
+        style={{
+          height: 40,
+          flexDirection: 'row',
+          textAlign: 'center',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Text
+          style={{
+            textAlign: 'center',
+            height: '100%',
+            height: 30,
+            fontSize: 20,
+            // borderWidth: 2,
+          }}>
+          Join
+        </Text>
+      </View>
+      <KeyboardAvoidingView
+        behavior="height"
+        style={styles.rootContainer}
+        keyboardVerticalOffset={Header.HEIGHT + 10}>
+        {mode === 'chat' ? (
+          <ScrollView>
+            <View style={styles.msgs}>
+              <ChatBox
+                msgsToRender={messages}
+                typing={typing}
+                whoTyping={whoTyping}
               />
-              <TouchableOpacity>
-                <Ionicon name="attach" size={20} color="#7C98B6" />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  sendMsgHandler();
-                  setPvtMsg('');
-                }}>
-                <Ionicon
-                  name="send"
-                  size={20}
+              <View style={styles.inputContainer}>
+                <TouchableOpacity>
+                  <Feather name="smile" size={20} color="#7C98B6" />
+                </TouchableOpacity>
+                <TextInput
+                  style={styles.input}
                   color="#7C98B6"
-                  style={{marginLeft: 5}}
+                  value={pvtMsg}
+                  placeholder="Write a message..."
+                  onChangeText={text => {
+                    changeTxtHandler(text);
+                  }}
                 />
-              </TouchableOpacity>
+                <TouchableOpacity>
+                  <Ionicon name="attach" size={20} color="#7C98B6" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    sendMsgHandler();
+                    setPvtMsg('');
+                  }}>
+                  <Ionicon
+                    name="send"
+                    size={20}
+                    color="#7C98B6"
+                    style={{marginLeft: 5}}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </ScrollView>
-      ) : mode === 'audio' ? (
-        <VoiceCallScreen />
-      ) : (
-        <VideoCallScreen />
-      )}
-      <BalanceLowModal
-        expiryTimestamp={sessionLow}
-        offsetTimestamp={sessionEnd}
-        sessionType={sessionType}
-        navigation={navigation}
-      />
-    </KeyboardAvoidingView>
+          </ScrollView>
+        ) : mode === 'audio' ? (
+          <VoiceCallScreen />
+        ) : (
+          <VideoCallScreen />
+        )}
+        <BalanceLowModal
+          expiryTimestamp={sessionLow}
+          offsetTimestamp={sessionEnd}
+          sessionType={sessionType}
+          navigation={navigation}
+        />
+      </KeyboardAvoidingView>
+    </>
   );
 };
 

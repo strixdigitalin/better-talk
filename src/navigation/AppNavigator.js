@@ -553,6 +553,7 @@ function MainApp({navigation}) {
 
   const userId = useSelector(state => state.user.userId);
   const appointmentId = useSelector(state => state.chat.appointmentId);
+  
   const socket = io('https://socketrahilbe.herokuapp.com/', {
     query: {userId: userId, appointmentId: appointmentId},
     reconnectionDelay: 1000,
@@ -563,6 +564,8 @@ function MainApp({navigation}) {
     upgrade: false,
     rejectUnauthorized: false,
   });
+
+
 
   return (
     <Stack.Navigator>
