@@ -1,6 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
+import {STRIX_URL} from './services';
 
 export const postPurchaseAsync = createAsyncThunk(
   'users/postPurchaseAsync',
@@ -10,7 +11,7 @@ export const postPurchaseAsync = createAsyncThunk(
     console.log('type:postPurchaseAsync ', type);
     return axios({
       method: 'post',
-      url: 'https://rihal-be.herokuapp.com/api/purchases',
+      url: STRIX_URL + '/api/purchases',
       data: {
         by: '62ad2a574607a57cf3545501',
         username: name,

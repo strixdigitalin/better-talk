@@ -115,9 +115,9 @@ const OnboardingMoreScreen = ({navigation}) => {
           uppercase={false}
           loading={false}
           onPress={() => {
-            navigation.navigate('OnboardingMedical');
             dispatch(setLocation(locationTemp));
             dispatch(setQualification(profession));
+            navigation.navigate('OnboardingMedical');
           }}
           style={styles.btnOnboard}>
           <Text style={styles.btnText}>Next</Text>

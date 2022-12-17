@@ -11,7 +11,8 @@ import notifee from '@notifee/react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const date1 = moment().add(5, 'minutes');
-
+export const socketbase =
+  'https://bettertalk-socket-production.up.railway.app/';
 const AppointmentWaitingScreen = ({navigation}) => {
   const userId = useSelector(state => state.user.userId);
   const appointmentId = useSelector(state => state.chat.appointmentId);
@@ -20,7 +21,7 @@ const AppointmentWaitingScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const expiryTimestamp = moment().add(5, 'minutes');
 
-  const socket = io('https://socketrahilbe.herokuapp.com/', {
+  const socket = io(socketbase, {
     query: {userId: userId, appointmentId: appointmentId},
     reconnectionDelay: 1000,
     reconnection: true,

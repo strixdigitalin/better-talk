@@ -23,6 +23,7 @@ import {create} from 'react-test-renderer';
 import {setMinsRem} from '../../store/reducers/chatReducer';
 import {postPurchaseAsync} from '../../store/services/payServices';
 import {postNotificationAsync} from '../../store/services/notificationservices';
+import {STRIX_URL} from '../../store/services/services';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -66,12 +67,9 @@ export default function PayPerMin({navigation}) {
   async function createOrder(amt) {
     dispatch(setSessionType('permins'));
     try {
-      const result = await axios.post(
-        'https://rihal-be.herokuapp.com/api/razorpay/createOrder',
-        {
-          amount: amt + (amt / 100) * 18,
-        },
-      );
+      const result = await axios.post(STRIX_URL + '/api/razorpay/createOrder', {
+        amount: amt + (amt / 100) * 18,
+      });
       console.log(result.data);
       const {amount, id, currency} = result.data;
       setOrderId(id);

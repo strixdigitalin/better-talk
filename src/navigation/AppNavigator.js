@@ -29,7 +29,9 @@ import ChooseAppointmentScreen from '../screens/booksession/ChooseAppointmentScr
 import ConfirmSlotScreen from '../screens/booksession/ConfirmSlotScreen';
 import DoctorDetailsScreen from '../screens/booksession/DoctorDetailsScreen';
 import StartAppointmentScreen from '../screens/booksession/StartAppointmentScreen';
-import AppointmentWaitingScreen from '../screens/booksession/AppointmentWaitingScreen';
+import AppointmentWaitingScreen, {
+  socketbase,
+} from '../screens/booksession/AppointmentWaitingScreen';
 import AvailableDoctorsScreen from '../screens/booksession/AvailableDoctorsScreen';
 import SlotConfirmedScreen from '../screens/booksession/SlotConfirmedScreen';
 import RateSessionScreen from '../screens/chat/RateSessionScreen';
@@ -496,8 +498,9 @@ function TabsNavigator({route}) {
           headerShown: false,
           tabBarIcon: ({focused}) => (
             <MaterialCommunityIcons
-              name="card"
-              // name="inventory"
+              // name="package"
+              name="view-dashboard-outline"
+              // name="inventory"f
               size={24}
               color={focused ? '#056AD0' : '#28323E'}
             />
@@ -553,8 +556,8 @@ function MainApp({navigation}) {
 
   const userId = useSelector(state => state.user.userId);
   const appointmentId = useSelector(state => state.chat.appointmentId);
-  
-  const socket = io('https://socketrahilbe.herokuapp.com/', {
+
+  const socket = io(socketbase, {
     query: {userId: userId, appointmentId: appointmentId},
     reconnectionDelay: 1000,
     reconnection: true,
@@ -564,8 +567,6 @@ function MainApp({navigation}) {
     upgrade: false,
     rejectUnauthorized: false,
   });
-
-
 
   return (
     <Stack.Navigator>

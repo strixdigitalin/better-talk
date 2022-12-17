@@ -35,13 +35,22 @@ export default function SplashLoadScreen({navigation}) {
       }
     }
   }, [loading, userId]);
-  return null;
-  // <View style={styles.rootContainer}>
-  //   <Image source={splashlogo} style={styles.splashLogo} />
-  // </View>
+
+  // return null;
+  return (
+    <View style={styles.rootContainer}>
+      {/* <Image source={splashlogo} style={styles.splashLogo} /> */}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
+  splashLogo: {
+    borderWidth: 1,
+    width: 10,
+    height: 10,
+  },
+
   rootContainer: {
     height: windowHeight,
     backgroundColor: '#FDFDFD',

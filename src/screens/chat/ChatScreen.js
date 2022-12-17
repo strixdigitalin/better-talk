@@ -9,6 +9,7 @@ import {
   Image,
   KeyboardAvoidingView,
   ScrollView,
+  Linking,
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -40,7 +41,8 @@ const windowWidth = Dimensions.get('window').width;
 const ChatScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [pvtMsg, setPvtMsg] = useState(null);
-  const {messages, typing, whoTyping, sendMessage, sendTyping} = useChat();
+  const {messages, typing, whoTyping, sendMessage, sendTyping, Link} =
+    useChat();
   const mode = useSelector(state => state.chat.mode);
   const sessionType = useSelector(state => state.pay.sessionType);
   const userId = useSelector(state => state.user.userId);
@@ -84,25 +86,36 @@ const ChatScreen = ({navigation}) => {
 
   return (
     <>
-      <View
-        style={{
-          height: 40,
-          flexDirection: 'row',
-          textAlign: 'center',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text
+      {Link != '' && (
+        <View
           style={{
+            height: 40,
+            flexDirection: 'row',
             textAlign: 'center',
-            height: '100%',
-            height: 30,
-            fontSize: 20,
-            // borderWidth: 2,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
-          Join
-        </Text>
-      </View>
+          <Text
+            style={{
+              textAlign: 'center',
+              height: '100%',
+              height: 30,
+              width: '100%',
+              fontSize: 18,
+              backgroundColor: Link != '' ? '#96ffae' : '#e2e2e2',
+              // borderWidth: 2,
+            }}
+            onPress={() => {
+              if (Link != '') {
+                // Alert.alert('clicked');
+                // joinMeet(Link);
+                Linking.openURL(Link);
+              }
+            }}>
+            Join on a call with doctor now
+          </Text>
+        </View>
+      )}
       <KeyboardAvoidingView
         behavior="height"
         style={styles.rootContainer}
@@ -110,11 +123,14 @@ const ChatScreen = ({navigation}) => {
         {mode === 'chat' ? (
           <ScrollView>
             <View style={styles.msgs}>
+              {/* <ScrollView> */}
               <ChatBox
                 msgsToRender={messages}
+                Link={Link}
                 typing={typing}
                 whoTyping={whoTyping}
               />
+              {/* </ScrollView> */}
               <View style={styles.inputContainer}>
                 <TouchableOpacity>
                   <Feather name="smile" size={20} color="#7C98B6" />
@@ -122,8 +138,8 @@ const ChatScreen = ({navigation}) => {
                 <TextInput
                   style={styles.input}
                   color="#7C98B6"
+                  placeholder="Write a message...2"
                   value={pvtMsg}
-                  placeholder="Write a message..."
                   onChangeText={text => {
                     changeTxtHandler(text);
                   }}

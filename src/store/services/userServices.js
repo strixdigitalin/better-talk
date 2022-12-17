@@ -9,12 +9,13 @@ import {
   setQualification,
 } from '../reducers/userReducer';
 import {setAvailMin, setAvailSessions} from '../reducers/payReducer';
+import {STRIX_URL} from './services';
 
 export const updateAgeAsync = createAsyncThunk(
   'users/updateSessionAsync',
   ({id, age, dispatch}) => {
     return axios
-      .put(`https://rihal-be.herokuapp.com/api/users/age/${id}`, {
+      .put(`${STRIX_URL}/api/users/age/${id}`, {
         age: age,
       })
       .then(function (response) {
@@ -31,7 +32,7 @@ export const updateLocationAsync = createAsyncThunk(
   'users/updateLocationAsync',
   ({id, location, dispatch}) => {
     return axios
-      .put(`https://rihal-be.herokuapp.com/api/users/location/${id}`, {
+      .put(`${STRIX_URL}/api/users/location/${id}`, {
         location: location,
       })
       .then(function (response) {
@@ -49,7 +50,7 @@ export const updateGenderAsync = createAsyncThunk(
   ({id, gender, dispatch}) => {
     console.log('gender: updateGenderAsync', gender);
     return axios
-      .put(`https://rihal-be.herokuapp.com/api/users/gender/${id}`, {
+      .put(`${STRIX_URL}/api/users/gender/${id}`, {
         gender: gender,
       })
       .then(function (response) {
@@ -66,7 +67,7 @@ export const updateQualificationAsync = createAsyncThunk(
   'users/updateQualificationAsync',
   ({id, qualification, dispatch}) => {
     return axios
-      .put(`https://rihal-be.herokuapp.com/api/users/qualification/${id}`, {
+      .put(`${STRIX_URL}/api/users/qualification/${id}`, {
         qualification: qualification,
       })
       .then(function (response) {
@@ -83,7 +84,7 @@ export const updateMedHistoryAsync = createAsyncThunk(
   'users/updateMedHistoryAsync',
   ({id, medHistory, dispatch}) => {
     return axios
-      .put(`https://rihal-be.herokuapp.com/api/users/medhistory/${id}`, {
+      .put(`${STRIX_URL}/api/users/medhistory/${id}`, {
         medHistory: medHistory,
       })
       .then(function (response) {
@@ -100,7 +101,7 @@ export const updateFreeSessionAsync = createAsyncThunk(
   'users/updateFreeSessionAsync',
   ({id, freeSession, dispatch}) => {
     return axios
-      .put(`https://rihal-be.herokuapp.com/api/users/free/${id}`, {
+      .put(`${STRIX_URL}/api/users/free/${id}`, {
         freeSession: freeSession,
       })
       .then(function (response) {
@@ -117,7 +118,7 @@ export const updateSessionsAsync = createAsyncThunk(
   'users/updateSessionsAsync',
   ({id, sessions}) => {
     return axios
-      .put(`https://rihal-be.herokuapp.com/api/users/sessions/${id}`, {
+      .put(`${STRIX_URL}/api/users/sessions/${id}`, {
         sessions: sessions,
       })
       .then(function (response) {
@@ -133,7 +134,7 @@ export const updateMinsAsync = createAsyncThunk(
   'users/updateMinsAsync',
   ({id, minutes}) => {
     return axios
-      .put(`https://rihal-be.herokuapp.com/api/users/minutes/${id}`, {
+      .put(`${STRIX_URL}/api/users/minutes/${id}`, {
         minutes: minutes,
       })
       .then(function (response) {

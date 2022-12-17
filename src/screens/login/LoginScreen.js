@@ -64,8 +64,8 @@ export default function LoginScreen({navigation}) {
           uppercase={false}
           loading={false}
           onPress={() => {
-            navigation.navigate('OnboardingName');
-            // navigation.navigate('LoginOtp', { number: text,})
+            // navigation.navigate('OnboardingName');
+            navigation.navigate('LoginOtp', {number: text});
           }}
           style={styles.btnOnboard}>
           <Text style={styles.btnText}>Send OTP</Text>

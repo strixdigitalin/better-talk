@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FDFDFD',
   },
   scrollContainer: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 25,
     position: 'relative',
   },
   availBal: {
@@ -334,10 +334,10 @@ const styles = StyleSheet.create({
     color: '#5C6C7C',
   },
   modalStyle: {
-    position: 'absolute',
+    // position: 'absolute',
     bottom: -18,
-    left: -18,
-    justifyContent: 'flex-end',
+    // left: -18,
+    // justifyContent: 'flex-end',
   },
   centeredView: {
     flex: 1,

@@ -25,7 +25,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setAvailMin, setAvailSessions} from '../reducers/payReducer';
 
-const baseUrl = 'https://rihal-be.herokuapp.com/api';
+const d = 'https://rihal-be.herokuapp.com/api';
 
 const saveId = async (id, name) => {
   try {

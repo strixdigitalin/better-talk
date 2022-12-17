@@ -25,47 +25,48 @@ const ChatBox = ({msgsToRender, typing, whoTyping}) => {
   const scrollViewRef = useRef();
 
   useEffect(() => {
-    if(scrollViewRef) {
+    if (scrollViewRef) {
       console.log('scrollViewRef: ', scrollViewRef);
-      scrollViewRef?.current?.scrollToEnd({x:0, y:0, animated: true});
+      scrollViewRef?.current?.scrollToEnd({x: 0, y: 0, animated: true});
     }
   }, [msgsToRender]);
 
+  // <View style={{bottom: 70}}>
   return (
-    <View style={{position: "absolute", bottom: 70}}>
-      {msgsToRender.length !== 0 && msgsToRender.map(item => {
-        return (
-          <ScrollView
-            contentContainerStyle={styles.chatContainer}
-            ref={scrollViewRef}
-            >
-            <View
-              style={
-                item.from === userId
-                  ? styles.msgContainerUser
-                  : styles.msgContainer
-              }>
-              {item.from === userId ? null : (
-                <Image source={avatar1} style={styles.imgAvatar} />
-              )}
+    <View style={{position: 'absolute', bottom: 70}}>
+      {msgsToRender.length !== 0 &&
+        msgsToRender.map(item => {
+          return (
+            <ScrollView
+              contentContainerStyle={styles.chatContainer}
+              ref={scrollViewRef}>
               <View
                 style={
                   item.from === userId
-                    ? styles.contentContainerUser
-                    : styles.contentContainer
+                    ? styles.msgContainerUser
+                    : styles.msgContainer
                 }>
-                <Text
+                {item.from === userId ? null : (
+                  <Image source={avatar1} style={styles.imgAvatar} />
+                )}
+                <View
                   style={
-                    item.from === userId ? styles.msgTextUser : styles.msgText
+                    item.from === userId
+                      ? styles.contentContainerUser
+                      : styles.contentContainer
                   }>
-                  {item.message}
-                </Text>
+                  <Text
+                    style={
+                      item.from === userId ? styles.msgTextUser : styles.msgText
+                    }>
+                    {item.message}
+                  </Text>
+                </View>
+                {item.from === userId ? (
+                  <Image source={avatar1} style={styles.imgAvatarUser} />
+                ) : null}
               </View>
-              {item.from === userId ? (
-                <Image source={avatar1} style={styles.imgAvatarUser} />
-              ) : null}
-            </View>
-            {typing && whoTyping !== userId ? (
+              {/* {typing && whoTyping !== userId ? (
               <View style={styles.typingCont}>
                 <Text style={styles.isTyping}>Dr. Murphy is Typing</Text>
                 <LottieView
@@ -74,18 +75,18 @@ const ChatBox = ({msgsToRender, typing, whoTyping}) => {
                   style={styles.lottieTyping}
                 />
               </View>
-            ) : null}
-          </ScrollView>
-        );
-      })}
+            ) : null} */}
+            </ScrollView>
+          );
+        })}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   chatContainer: {
-    //marginBottom: 40,
-    //height: '100%',
+    // marginBottom: 40,
+    height: '100%',
     // display: 'flex',
     // flexDirection: 'column',
     // justifyContent: 'center',

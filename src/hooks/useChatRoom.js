@@ -1,20 +1,22 @@
 import {useEffect, useRef, useState} from 'react';
 import socketIOClient from 'socket.io-client';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
+import {socketbase} from '../screens/booksession/AppointmentWaitingScreen';
 const NEW_MESSAGE_EVENT = 'private message';
 
 const useChatRoom = () => {
   const [messages, setMessages] = useState([]);
   const [typing, setTyping] = useState(false);
+  const [Link, setLink] = useState('');
   const [whoTyping, setWhoTyping] = useState('');
-  const appointmentId = useSelector(state=>state.chat.appointmentId);
-  const docSelected = useSelector(state=>state.chat.docSelected);
-  const userId = useSelector(state=>state.user.userId);
+  const appointmentId = useSelector(state => state.chat.appointmentId);
+  const docSelected = useSelector(state => state.chat.docSelected);
+  const userId = useSelector(state => state.user.userId);
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = socketIOClient('https://socketrahilbe.herokuapp.com/', {
-      query: {userId: userId, appointmentId:appointmentId },
+    socketRef.current = socketIOClient(socketbase, {
+      query: {userId: userId, appointmentId: appointmentId},
       reconnectionDelay: 1000,
       reconnection: true,
       reconnectionAttempts: 10,
@@ -32,6 +34,17 @@ const useChatRoom = () => {
         fromDoc: fromDoc,
       };
       setMessages(messages => [...messages, incomingMessage]);
+    });
+    socketRef.current.on('join', ({message, from, to, fromDoc}) => {
+      const incomingMessage = {
+        message: message,
+        from: from,
+        to: to,
+        fromDoc: fromDoc,
+      };
+      console.log('join', incomingMessage, '<<<this i sjoin');
+      setLink(message);
+      // setMessages(messages => [...messages, incomingMessage]);
     });
 
     socketRef.current.on('typing', ({isTyping, whoIsTyping}) => {
@@ -58,7 +71,7 @@ const useChatRoom = () => {
       whoIsTyping: userId,
     });
   };
-  return {messages, typing, whoTyping, sendMessage, sendTyping};
+  return {messages, typing, whoTyping, Link, sendMessage, sendTyping};
 };
 
 export default useChatRoom;

@@ -2,12 +2,13 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
 import {setPosts} from '../reducers/forumReducer';
+import {STRIX_URL} from './services';
 
 export const getForumPostsAsync = createAsyncThunk(
   'forums/getForumPostsAsync',
   ({dispatch}) => {
     return axios
-      .get('https://rihal-be.herokuapp.com/api/forums')
+      .get(STRIX_URL + '/api/forums')
       .then(function (response) {
         //console.log(' getForumPostsAsync response: data', response);
         dispatch(setPosts(response.data));
@@ -22,7 +23,7 @@ export const postForumPostAsync = createAsyncThunk(
   'forums/postForumPostAsync',
   ({name, content, likes, date, comments, userId}) => {
     return axios
-      .post('https://rihal-be.herokuapp.com/api/forums', {
+      .post(STRIX_URL + '/api/forums', {
         name: name,
         content: content,
         likes: likes,
@@ -44,7 +45,7 @@ export const postCommentAsync = createAsyncThunk(
   ({name, content, id}) => {
     console.log('id: ', id);
     return axios
-      .put(`https://rihal-be.herokuapp.com/api/forums/comments/${id}`, {
+      .put(`${STRIX_URL}/api/forums/comments/${id}`, {
         name: name,
         content: content,
       })
@@ -62,7 +63,7 @@ export const updatePostLikesAsync = createAsyncThunk(
   id => {
     console.log(' updatePostLikesAsync id: ', id);
     return axios
-      .put(`https://rihal-be.herokuapp.com/api/forums/likes/${id}`, {
+      .put(`${STRIX_URL}/api/forums/likes/${id}`, {
         likes: 1,
       })
       .then(function (response) {

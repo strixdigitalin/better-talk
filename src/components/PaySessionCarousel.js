@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setSessionType, setAvailSessions} from '../store/reducers/payReducer';
 import RazorpayCheckout from 'react-native-razorpay';
 import axios from 'axios';
+import {STRIX_URL} from '../store/services/services';
 
 const SLIDER_WIDTH = Dimensions.get('window').width + 80;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -85,7 +86,7 @@ const PaySessionCarousel = ({
             dispatch(setSessionType('persession'));
             try {
               const result = await axios.post(
-                'https://rihal-be.herokuapp.com/api/razorpay/createOrder',
+                STRIX_URL + '/api/razorpay/createOrder',
                 {
                   amount: (item.price + (item.price / 100) * 18) * 100,
                 },

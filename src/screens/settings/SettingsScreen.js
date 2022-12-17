@@ -11,9 +11,17 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {updateImage} from '../../store/services/StrixAPI/USerAPI';
 import {setImage} from '../../store/reducers/userReducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const windowHeight = Dimensions.get('window').height;
 // console.log(result);
+// const getImage = async () => {
+//   const data = await AsyncStorage.getItem('userImage');
+//   if (data == 'null') {
+//     return '';
+//   }
+//   return data;
+// };
 export default function SettingsScreen({navigation}) {
   const [avatar, setavatar] = useState('');
   const dispatch = useDispatch();
@@ -21,7 +29,7 @@ export default function SettingsScreen({navigation}) {
   const image = useSelector(state => state.user.image);
   const userId = useSelector(state => state.user.userId);
 
-  openGalery = () => {
+  const openGalery = () => {
     var options = {
       title: 'Select Image',
 
@@ -42,7 +50,7 @@ export default function SettingsScreen({navigation}) {
 
     const requestCameraPermission = async () => {
       try {
-        launchImageLibrary(options, res => {
+        launchImageLibrary(options, async res => {
           console.log('Response = ', res);
 
           if (res.didCancel) {
@@ -57,8 +65,11 @@ export default function SettingsScreen({navigation}) {
             const payload = {
               ...res.assets[0],
               filename: res.assets[0].fileName,
+              name: res.assets[0].fileName,
             };
             setavatar(res.assets[0].uri);
+            // dispatch(setImage(res.assets[0].uri));
+            // await AsyncStorage.setItem('userImage', res.assets[0].uri);
             updateImage(userId, payload, res => {
               console.log(res.data, '\n\n<<<<<Image\n\n');
               dispatch(setImage(res.data.profile));
@@ -262,6 +273,7 @@ const styles = StyleSheet.create({
   prof: {
     width: 64,
     height: 64,
+    borderWidth: 1,
     borderRadius: 64 / 2,
   },
   nameCont: {

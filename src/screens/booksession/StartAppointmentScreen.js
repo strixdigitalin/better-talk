@@ -4,13 +4,14 @@ import {StyleSheet, View, Text, Image, Dimensions} from 'react-native';
 import startappointment from '../../assets/startappointment.png';
 import {Button} from 'react-native-paper';
 import {useSelector} from 'react-redux';
+import {socketbase} from './AppointmentWaitingScreen';
 
 const windowHeight = Dimensions.get('window').height;
 
 const StartAppointmentScreen = ({navigation}) => {
   const userId = useSelector(state => state.user.userId);
   const appointmentId = useSelector(state => state.chat.appointmentId);
-  const socket = io('https://socketrahilbe.herokuapp.com/', {
+  const socket = io(socketbase, {
     query: {userId: userId, appointmentId: appointmentId},
     reconnectionDelay: 1000,
     reconnection: true,

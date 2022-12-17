@@ -10,7 +10,7 @@ import {Button} from 'react-native-paper';
 import axios from 'axios';
 import moment from 'moment';
 import {useSelector, useDispatch} from 'react-redux';
-import {postAppointmentAsync} from '../../store/services/services';
+import {postAppointmentAsync, STRIX_URL} from '../../store/services/services';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -85,12 +85,9 @@ const ConfirmSlotScreen = ({navigation}) => {
     temp[daySelected][slotSelected] = true;
     console.log('temp: post', temp);
     axios
-      .put(
-        `https://rihal-be.herokuapp.com/api/doctors/availability/${docSelected}`,
-        {
-          availability: temp,
-        },
-      )
+      .put(`${STRIX_URL}/api/doctors/availability/${docSelected}`, {
+        availability: temp,
+      })
       .then(function (response) {
         console.log('response: ', response);
         dispatch(
