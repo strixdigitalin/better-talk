@@ -32,7 +32,8 @@ export const userSlice = createSlice({
     userId: '639960855e84e3449b3e224f',
     session: 0,
     loading: true,
-    image: '',
+    image:
+      'https://res.cloudinary.com/strix-digital/image/upload/v1671304736/gpdsnxigzopmf40ztdc1.png',
   },
   reducers: {
     setName: (state, action) => {

@@ -14,7 +14,7 @@ export const updateImage = (userid, file, CallBack) => {
   fetch(STRIX_URL + '/api/users/profile/' + userid, requestOptions)
     .then(response => response.text())
     .then(result => {
-      console.log('<<<< PAI update image \n\n\n\n');
+      console.log('<<<< PAI update image \n\n ', result, '  \n\n');
       CallBack(JSON.parse(result));
     })
     .catch(error => console.log('error', error));
