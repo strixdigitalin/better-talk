@@ -27,7 +27,9 @@ export default function SettingsScreen({navigation}) {
   const dispatch = useDispatch();
   const name = useSelector(state => state.user.name);
   const image = useSelector(state => state.user.image);
+  const emailId = useSelector(state => state.user.image);
   const userId = useSelector(state => state.user.userId);
+  const availSessions = useSelector(state => state.pay.availSessions);
 
   const openGalery = () => {
     var options = {
@@ -129,7 +131,7 @@ export default function SettingsScreen({navigation}) {
                 style={{marginLeft: 5, marginTop: 3}}
               />
             </View>
-            <Text style={styles.mail}>Alexcosta@gmail.com</Text>
+            {/* <Text style={styles.mail}>Alexcosta@gmail.com</Text> */}
           </View>
         </View>
         <View style={styles.flexRow}>
@@ -194,8 +196,11 @@ export default function SettingsScreen({navigation}) {
         </View>
         <Divider />
         <View style={[styles.flexRow, {justifyContent: 'space-between'}]}>
-          <Text style={styles.subheading}>Your Balance</Text>
-          <Text style={styles.bold}>{'\u20B9'}67/-</Text>
+          <Text style={styles.subheading}>Sessions Available</Text>
+          <Text style={{...styles.bold, fontSize: 20}}>
+            {/* {'\u20B9'} */}
+            {availSessions}
+          </Text>
         </View>
         <View style={[styles.flexRow, {justifyContent: 'space-between'}]}>
           <Text style={styles.subheading}>Gift a friend</Text>
@@ -213,10 +218,10 @@ export default function SettingsScreen({navigation}) {
           <Text style={styles.subheading}>About Us</Text>
           <MaterialIcons name="chevron-right" size={24} color={'#6E7781'} />
         </View>
-        <View style={[styles.flexRow, {justifyContent: 'space-between'}]}>
+        {/* <View style={[styles.flexRow, {justifyContent: 'space-between'}]}>
           <Text style={styles.subheading}>Log Out</Text>
           <MaterialIcons name="chevron-right" size={24} color={'#6E7781'} />
-        </View>
+        </View> */}
       </View>
     </ScrollView>
   );

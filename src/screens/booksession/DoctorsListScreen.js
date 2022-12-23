@@ -173,6 +173,7 @@ const DoctorsListScreen = ({navigation}) => {
       setItemsToRender(temp);
     }
   }
+  console.log(itemsToRender, '<<<<< this is item to open');
 
   useEffect(() => {
     dispatch(getNotificationsAsync({id: userId, dispatch: dispatch}));
@@ -191,7 +192,6 @@ const DoctorsListScreen = ({navigation}) => {
     return parseInt(rating / arr.length);
   };
 
-  
   return (
     <View style={styles.listContainer}>
       <Text style={styles.subTitle}>Hope you are doing well today</Text>
@@ -312,10 +312,14 @@ const DoctorsListScreen = ({navigation}) => {
                   dispatch(setDocSelectedObj(doctor));
                 }}>
                 {/* <ImageBackground source={doctor} resizeMode="cover" style={styles.doctorImage} /> */}
-                <Image
-                  source={doctor.profile ? doctor.profile : dummydoc}
-                  style={styles.doctorImage}
-                />
+                {doctor?.profile?.length > 0 ? (
+                  <Image
+                    source={{uri: doctor.profile}}
+                    style={styles.doctorImage}
+                  />
+                ) : (
+                  <Image source={dummydoc} style={styles.doctorImage} />
+                )}
                 <View style={styles.detailsContainer}>
                   <View style={{display: 'flex', flexDirection: 'row'}}>
                     <Text style={styles.heading2}>{doctor.name}</Text>
