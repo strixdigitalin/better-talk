@@ -10,6 +10,7 @@ import {
   Dimensions,
   ScrollView,
   ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {Searchbar} from 'react-native-paper';
@@ -66,6 +67,9 @@ const doctorsList = [
     available: '5 mins',
   },
 ];
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
 
 const DoctorsListScreen = ({navigation}) => {
   const [doctors, setDoctors] = useState([]);
@@ -76,6 +80,7 @@ const DoctorsListScreen = ({navigation}) => {
   const [itemsToRender, setItemsToRender] = useState(displayDoctors);
   const freeUsed = useSelector(state => state.book.freeUsed);
   const scrollLength = itemsToRender.length * 100 + 100;
+  const [refreshing, setRefreshing] = React.useState(false);
   const dispatch = useDispatch();
 
   const appointmentsList = [
@@ -161,6 +166,11 @@ const DoctorsListScreen = ({navigation}) => {
     },
   ];
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    dispatch(getDoctorsAsync({dispatch: dispatch}));
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
   function onSearchText(searchtext) {
     if (searchtext === '') {
       setItemsToRender(displayDoctors);
@@ -290,7 +300,10 @@ const DoctorsListScreen = ({navigation}) => {
           />
         </TouchableOpacity>
       </View>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <View style={{height: scrollLength}}>
           {itemsToRender.map(doctor => {
             console.log(
