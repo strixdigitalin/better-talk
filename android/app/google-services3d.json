@@ -1,0 +1,92 @@
+{
+  "project_info": {
+    "project_number": "550425853675",
+    "project_id": "bettertalk-4bbb6",
+    "storage_bucket": "bettertalk-4bbb6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550425853675:android:d8636eb8cd0392673288ae",
+        "android_client_info": {
+          "package_name": "com.bettertalk.androidapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "550425853675-612qjkl4pj0b93hkmtrajiipvo6eksqf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC30IDveJqf3Wl3KglgSXl434x_fmBD_7A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "550425853675-612qjkl4pj0b93hkmtrajiipvo6eksqf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550425853675:android:4b3974f1fc75222c3288ae",
+        "android_client_info": {
+          "package_name": "com.docfe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "550425853675-180p42jmk5om2umbaevdoctt72mevhrq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.docfe",
+            "certificate_hash": "66e29768bc09224b81eebf65b52ffd6cc95c1832"
+          }
+        },
+        {
+          "client_id": "550425853675-ea99nbdhjpgsa8h52m249sp3obbdnrgd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.docfe",
+            "certificate_hash": "2d08ec679cae4e3d23f872f174742dd90ef72c94"
+          }
+        },
+        {
+          "client_id": "550425853675-tq813sol1jaorej0sj7ahcutg7qr8c1g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.docfe",
+            "certificate_hash": "7fd12456c6c38de7e765df8a9b7dd33e8889d8b1"
+          }
+        },
+        {
+          "client_id": "550425853675-612qjkl4pj0b93hkmtrajiipvo6eksqf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC30IDveJqf3Wl3KglgSXl434x_fmBD_7A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "550425853675-612qjkl4pj0b93hkmtrajiipvo6eksqf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
