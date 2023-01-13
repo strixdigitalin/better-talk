@@ -7,10 +7,10 @@ buildscript {
         buildToolsVersion = "31.0.0"
         minSdkVersion = 21
         compileSdkVersion = 31
-        targetSdkVersion = 30
+        targetSdkVersion = 31
 
         if (System.properties['os.arch'] == "aarch64") {
-            // For M1 Users we need to use the NDK 24 which added support for aarch64
+            // For M1 Users we need to use the NDK 24 which added sut for aarch64
             ndkVersion = "24.0.8215888"
         } else if (Os.isFamily(Os.FAMILY_WINDOWS)) {
             // For Android Users, we need to use NDK 23, otherwise the build will
@@ -29,7 +29,7 @@ buildscript {
         classpath("com.android.tools.build:gradle:7.0.4")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("de.undercouch:gradle-download-task:4.1.2")
-        classpath ("com.google.gms:google-services:4.3.3")
+        classpath ("com.google.gms:google-services:4.3.13")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -55,5 +55,16 @@ allprojects {
         }
         google()
         maven { url 'https://www.jitpack.io' }
+         exclusiveContent {
+           filter {
+               includeGroup "com.facebook.react"
+           }
+
+           forRepository {
+               maven {
+                   url "$rootDir/../node_modules/react-native/android"
+               }
+           }
+       }
     }
 }

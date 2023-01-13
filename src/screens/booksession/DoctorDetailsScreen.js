@@ -125,7 +125,14 @@ export default function DoctorDetailsScreen({route, navigation}) {
               <Text style={styles.noofRevs}>(1000+)</Text>
             </View>
           </View>
-          <Image source={dummyuser} style={styles.userImage} />
+          <Image
+            source={
+              docSelectedObj?.profile
+                ? {uri: docSelectedObj.profile}
+                : dummyuser
+            }
+            style={styles.userImage}
+          />
         </View>
         <ScrollView style={styles.medicalContainer}>
           <Text style={styles.subheading}>About</Text>
@@ -149,10 +156,7 @@ export default function DoctorDetailsScreen({route, navigation}) {
             </View>
           </View>
           <Text style={styles.subheading}>Qualifications</Text>
-          <Text style={styles.body}>
-            Folks who fell off roofs trying to chisel ice dams are still hopping
-            around on crutches.
-          </Text>
+          <Text style={styles.body}>{docSelectedObj?.qualification}</Text>
           <Text style={styles.subheading}>Description</Text>
           <Text style={styles.body}>{docSelectedObj.description}</Text>
           <Text style={styles.subheading}>Reviews</Text>
