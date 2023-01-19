@@ -6,6 +6,7 @@ import {setDoctors, setLoading} from '../reducers/docReducer';
 
 // export const STRIX_URL = 'https://better-talk-strix-backend.herokuapp.com';
 export const STRIX_URL = 'https://better-backend-production.up.railway.app';
+// export const STRIX_URL = 'http://192.168.168.136:5000';
 // export const STRIX_URL =
 //   'http://ec2-43-204-216-211.ap-south-1.compute.amazonaws.com:5000';
 import {
@@ -238,30 +239,35 @@ export const postAppointmentAsync = createAsyncThunk(
     );
     // return null;
 
-    return (
-      axios
-        // .post('https://rihal-be.herokuapp.com/api/appointments', {
-        .post(STRIX_URL + '/api/appointments', {
-          from: from,
-          to: to,
-          fromName: fromName,
-          time: time,
-          acceptStatus: acceptStatus,
-          startStatus: startStatus,
-          appointmentType: appointmentType,
-        })
-        .then(function (response) {
-          console.log(
-            'response: postAppointmentAsync message data._id',
-            response.data.data._id,
-          );
-          console.log('response: postAppointmentAsync ', response.data);
-          dispatch(setAppointmentId(response.data.data._id));
-        })
-        .catch(function (error) {
-          console.log('error:postAppointmentAsync ', error);
-        })
-    );
+    // .post('https://rihal-be.herokuapp.com/api/appointments', {
+    var axios = require('axios');
+    var data = JSON.stringify({
+      from,
+      to,
+      time,
+      acceptStatus: false,
+      startStatus: false,
+      fromName: fromName,
+      appointmentType: 'permins',
+    });
+
+    var config = {
+      method: 'post',
+      url: STRIX_URL + '/api/appointments',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log('appointmentresult', response.data);
+        // callBack(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   },
 );
 
