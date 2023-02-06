@@ -12,7 +12,7 @@ import notifee from '@notifee/react-native';
 const windowHeight = Dimensions.get('window').height;
 const date1 = moment().add(5, 'minutes');
 export const socketbase =
-  'https://bettertalk-socket-production.up.railway.app/';
+  'https://ec2-43-204-230-18.ap-south-1.compute.amazonaws.com/';
 const AppointmentWaitingScreen = ({navigation}) => {
   const userId = useSelector(state => state.user.userId);
   const appointmentId = useSelector(state => state.chat.appointmentId);
@@ -96,7 +96,7 @@ const AppointmentWaitingScreen = ({navigation}) => {
 
   useEffect(() => {
     socket.on('accept', ({message, from, to, fromDoc}) => {
-      console.log('accept');
+      console.log('accept appointment');
       setReqAccepted(true);
     });
   }, [socket]);

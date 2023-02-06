@@ -5,7 +5,9 @@ import {setDoctors, setLoading} from '../reducers/docReducer';
 // http://ec2-43-204-216-211.ap-south-1.compute.amazonaws.com:5000/
 
 // export const STRIX_URL = 'https://better-talk-strix-backend.herokuapp.com';
-export const STRIX_URL = 'https://better-backend-production.up.railway.app';
+// export const STRIX_URL = 'https://better-backend.onrender.com';
+export const STRIX_URL =
+  'https://ec2-65-1-85-203.ap-south-1.compute.amazonaws.com';
 // export const STRIX_URL = 'http://192.168.168.136:5000';
 // export const STRIX_URL =
 //   'http://ec2-43-204-216-211.ap-south-1.compute.amazonaws.com:5000';

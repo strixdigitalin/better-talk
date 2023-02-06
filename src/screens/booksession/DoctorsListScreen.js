@@ -11,6 +11,7 @@ import {
   ScrollView,
   ActivityIndicator,
   RefreshControl,
+  Linking,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {Searchbar} from 'react-native-paper';
@@ -28,6 +29,7 @@ import {getDoctorsAsync} from '../../store/services/services';
 import {getNotificationsAsync} from '../../store/services/notificationservices';
 import {selectDoctors} from '../../store/reducers/docReducer';
 import LinearGradient from 'react-native-linear-gradient';
+
 const windowHeight = Dimensions.get('window').height;
 
 const doctorsList = [
@@ -221,7 +223,7 @@ const DoctorsListScreen = ({navigation}) => {
         }}
       />
       <View style={styles.flexRow}>
-        <Text style={styles.welcomeText}>Upcoming Appointments (2)</Text>
+        <Text style={styles.welcomeText}>Upcoming Appointments (2) </Text>
         <TouchableOpacity>
           <Text style={styles.highlightText}>View All</Text>
         </TouchableOpacity>
@@ -266,18 +268,24 @@ const DoctorsListScreen = ({navigation}) => {
                   color="#056AD0"
                 />
               </View>
-              <Text style={styles.trial}>Book a trial session</Text>
+              <Text style={styles.trial}>Latest update about the app</Text>
             </View>
             <View style={styles.contentContainer}>
               <Text style={styles.trialContent}>
-                You can now book{' '}
-                <Text style={styles.trialBold}>15mins&nbsp;</Text>
-                sessions with our doctors daily for&nbsp;
-                <Text style={styles.trialBold}>free of cost</Text>
+                We will give regular updates here
+                <Text
+                  style={styles.trialBold}
+                  onPress={() => {
+                    // Alert.alert('clicked');
+                    // joinMeet(Link);
+                    Linking.openURL('https://www.google.com');
+                  }}>
+                  &nbsp; Click here to open the link
+                </Text>
               </Text>
             </View>
           </View>
-          <View style={styles.arrFreeContainer}>
+          {/* <View style={styles.arrFreeContainer}>
             <MaterialCommunityIcons
               name="arrow-right"
               size={24}
@@ -286,7 +294,7 @@ const DoctorsListScreen = ({navigation}) => {
                 navigation.navigate('AvailableDoctors');
               }}
             />
-          </View>
+          </View> */}
         </LinearGradient>
       )}
 
