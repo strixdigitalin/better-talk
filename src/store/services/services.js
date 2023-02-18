@@ -6,8 +6,7 @@ import {setDoctors, setLoading} from '../reducers/docReducer';
 
 // export const STRIX_URL = 'https://better-talk-strix-backend.herokuapp.com';
 // export const STRIX_URL = 'https://better-backend.onrender.com';
-export const STRIX_URL =
-  'https://ec2-65-1-85-203.ap-south-1.compute.amazonaws.com';
+export const STRIX_URL = 'https://backend-update-production.up.railway.app';
 // export const STRIX_URL = 'http://192.168.168.136:5000';
 // export const STRIX_URL =
 //   'http://ec2-43-204-216-211.ap-south-1.compute.amazonaws.com:5000';
@@ -29,7 +28,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setAvailMin, setAvailSessions} from '../reducers/payReducer';
 
-const d = 'https://rihal-be.herokuapp.com/api';
+// const d = 'https://rihal-be.herokuapp.com/api';
 
 const saveId = async (id, name) => {
   try {
@@ -159,6 +158,8 @@ export const postUserAsync = createAsyncThunk(
 export const getDoctorsAsync = createAsyncThunk(
   'doctors/getDoctorsAsync',
   ({dispatch}) => {
+    console.log(STRIX_URL + '/api/doctors', '<-----get doctor url');
+
     return (
       axios
         // .get('https://rihal-be.herokuapp.com/api/doctors')

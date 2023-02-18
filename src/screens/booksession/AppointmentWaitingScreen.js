@@ -11,8 +11,7 @@ import notifee from '@notifee/react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const date1 = moment().add(5, 'minutes');
-export const socketbase =
-  'https://ec2-43-204-230-18.ap-south-1.compute.amazonaws.com/';
+export const socketbase = 'https://hungry-skate-production.up.railway.app';
 const AppointmentWaitingScreen = ({navigation}) => {
   const userId = useSelector(state => state.user.userId);
   const appointmentId = useSelector(state => state.chat.appointmentId);
