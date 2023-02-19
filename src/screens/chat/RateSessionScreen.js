@@ -3,9 +3,9 @@ import {Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {Modal, Portal, Text, Button, TextInput} from 'react-native-paper';
 import {AirbnbRating} from 'react-native-ratings';
 import feedback from '../../assets/feedback.png';
-import { useSelector, useDispatch } from 'react-redux';
-import { postRatingAsync } from '../../store/services/services';
-import { useImmerReducer } from 'use-immer';
+import {useSelector, useDispatch} from 'react-redux';
+import {postRatingAsync} from '../../store/services/services';
+import {useImmerReducer} from 'use-immer';
 import moment from 'moment';
 
 export default function RateSessionScreen({navigation}) {
@@ -26,8 +26,8 @@ export default function RateSessionScreen({navigation}) {
     alignItems: 'center',
     width: 324,
     height: 403,
-    marginLeft: "5%",
-    justifyContent: "space-evenly",
+    marginLeft: '5%',
+    justifyContent: 'space-evenly',
     borderRadius: 16,
   };
 
@@ -45,9 +45,9 @@ export default function RateSessionScreen({navigation}) {
           showRating={false}
           size={14}
           ratingColor="#DE8B0E"
-          onFinishRating={(rating)=>{
-             console.log('rating: ', rating);
-             setRating(rating); 
+          onFinishRating={rating => {
+            console.log('rating: ', rating);
+            setRating(rating);
           }}
         />
         <TextInput
@@ -65,7 +65,7 @@ export default function RateSessionScreen({navigation}) {
             fontFamily: 'Inter-Regular',
             fontSize: 12,
             padding: 0,
-            width: "90%",
+            width: '90%',
             borderRadius: 8,
           }}
         />
@@ -73,7 +73,21 @@ export default function RateSessionScreen({navigation}) {
           mode="contained"
           uppercase={false}
           onPress={() => {
-            dispatch(postRatingAsync({id: docSelected, rating: rating, from: name, date: now}))
+            console.log({
+              id: docSelected,
+              rating: rating,
+              from: name,
+              date: now,
+            });
+            // return null;
+            dispatch(
+              postRatingAsync({
+                id: docSelected,
+                rating: rating,
+                from: name,
+                date: now,
+              }),
+            );
             navigation.navigate('DoctorsList');
           }}
           style={styles.btnModal}>
@@ -96,9 +110,9 @@ const styles = StyleSheet.create({
   },
   titleModal: {
     fontSize: 16,
-    fontFamily: "Inter-Medium",
+    fontFamily: 'Inter-Medium',
     lineHeight: 24,
-    color: "#33475B",
+    color: '#33475B',
   },
   btnModal: {
     backgroundColor: '#323F4D',
@@ -112,14 +126,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-SemiBold',
     fontSize: 14,
     lineHeight: 18,
-    color: "white",
+    color: 'white',
   },
   cancelModalText: {
     textAlign: 'center',
     fontSize: 12,
-    fontFamily: "Inter-Medium",
+    fontFamily: 'Inter-Medium',
     lineHeight: 24,
-    color: "#056AD0",
+    color: '#056AD0',
   },
   cancelModal: {
     textAlign: 'center',

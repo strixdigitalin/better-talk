@@ -3,10 +3,14 @@ import {StyleSheet, View, Text, Image, Dimensions, Alert} from 'react-native';
 import instantappointment from '../../assets/instantappointment.png';
 import advancebooking from '../../assets/advancebooking.png';
 import {Button} from 'react-native-paper';
-import {postAppointmentAsync} from '../../store/services/services';
+import {
+  PostAppointment,
+  postAppointmentAsync,
+} from '../../store/services/services';
 import {postNotificationAsync} from '../../store/services/notificationservices';
 import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
+import {setAppointmentId} from '../../store/reducers/chatReducer';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -57,8 +61,9 @@ const ChooseAppointmentScreen = ({route, navigation}) => {
           uppercase={false}
           onPress={() => {
             // console.log(user, '<<<<this is user');
-            dispatch(
-              postAppointmentAsync({
+
+            PostAppointment(
+              {
                 from: userId,
                 to: docSelected,
                 fromName: name,
@@ -67,18 +72,23 @@ const ChooseAppointmentScreen = ({route, navigation}) => {
                 startStatus: false,
                 appointmentType: 'instant',
                 dispatch: dispatch,
-              }),
-            );
-            dispatch(
-              postNotificationAsync({
-                to: userId,
-                content: now,
-                type: 'appointment',
-              }),
-            );
+              },
+              res => {
+                console.log(res, '<<<<<< post appointment');
+                dispatch(
+                  postNotificationAsync({
+                    to: userId,
+                    content: now,
+                    type: 'appointment',
+                  }),
+                );
+                dispatch(setAppointmentId(res.data._id));
 
-            // navigation.navigate('ChatDoctor');
-            navigation.navigate('AppointmentWaiting');
+                // navigation.navigate('ChatDoctor');
+                navigation.navigate('AppointmentWaiting', {data: res.data});
+              },
+            );
+            // return null;
           }}
           style={styles.btnOnboard}
           disabled={availSessions === 0}>

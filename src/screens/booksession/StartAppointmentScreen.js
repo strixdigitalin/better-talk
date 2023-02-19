@@ -8,9 +8,11 @@ import {socketbase} from './AppointmentWaitingScreen';
 
 const windowHeight = Dimensions.get('window').height;
 
-const StartAppointmentScreen = ({navigation}) => {
+const StartAppointmentScreen = ({navigation, route}) => {
   const userId = useSelector(state => state.user.userId);
-  const appointmentId = useSelector(state => state.chat.appointmentId);
+  // const appointmentId = useSelector(state => state.chat.appointmentId);
+  // console.log(route.params, '<<<< startappointmentscreen');
+  const appointmentId = route.params.appointmentId;
   const socket = io(socketbase, {
     query: {userId: userId, appointmentId: appointmentId},
     reconnectionDelay: 1000,

@@ -86,44 +86,15 @@ const ChatScreen = ({navigation}) => {
 
   return (
     <>
-      {Link != '' && (
-        <View
-          style={{
-            height: 40,
-            flexDirection: 'row',
-            textAlign: 'center',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text
-            style={{
-              textAlign: 'center',
-              height: '100%',
-              height: 30,
-              width: '100%',
-              fontSize: 18,
-              backgroundColor: Link != '' ? '#96ffae' : '#e2e2e2',
-              // borderWidth: 2,
-            }}
-            onPress={() => {
-              if (Link != '') {
-                // Alert.alert('clicked');
-                // joinMeet(Link);
-                Linking.openURL(Link);
-              }
-            }}>
-            Join on a call with doctor now
-          </Text>
-        </View>
-      )}
       <KeyboardAvoidingView
         behavior="height"
         style={styles.rootContainer}
-        keyboardVerticalOffset={Header.HEIGHT + 10}>
+        keyboardVerticalOffset={Header.HEIGHT}>
         {mode === 'chat' ? (
           <ScrollView>
             <View style={styles.msgs}>
               {/* <ScrollView> */}
+
               <ChatBox
                 msgsToRender={messages}
                 Link={Link}
@@ -131,6 +102,7 @@ const ChatScreen = ({navigation}) => {
                 whoTyping={whoTyping}
               />
               {/* </ScrollView> */}
+
               <View style={styles.inputContainer}>
                 <TouchableOpacity>
                   <Feather name="smile" size={20} color="#7C98B6" />

@@ -20,7 +20,7 @@ import {useSelector} from 'react-redux';
 const windowHeight = Dimensions.get('window').height;
 const chatHeight = Dimensions.get('window').height;
 
-const ChatBox = ({msgsToRender, typing, whoTyping}) => {
+const ChatBox = ({msgsToRender, typing, whoTyping, Link}) => {
   const userId = useSelector(state => state.user.userId);
   const scrollViewRef = useRef();
 
@@ -66,6 +66,7 @@ const ChatBox = ({msgsToRender, typing, whoTyping}) => {
                   <Image source={avatar1} style={styles.imgAvatarUser} />
                 ) : null}
               </View>
+
               {/* {typing && whoTyping !== userId ? (
               <View style={styles.typingCont}>
                 <Text style={styles.isTyping}>Dr. Murphy is Typing</Text>
@@ -79,6 +80,41 @@ const ChatBox = ({msgsToRender, typing, whoTyping}) => {
             </ScrollView>
           );
         })}
+      {Link != '' && (
+        <View
+          style={{
+            height: 40,
+            flexDirection: 'row',
+            textAlign: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
+            // position:"f",
+            // bottom: 10,
+          }}>
+          <Text
+            style={{
+              textAlign: 'center',
+              height: '100%',
+              height: 40,
+              // paddingVertical: 25,
+              width: '100%',
+              fontSize: 18,
+              backgroundColor: Link != '' ? '#96ffae' : '#e2e2e2',
+              // borderWidth: 2,
+              // position: 'absolute',
+              // top: 20,
+            }}
+            onPress={() => {
+              if (Link != '') {
+                // Alert.alert('clicked');
+                // joinMeet(Link);
+                Linking.openURL(Link);
+              }
+            }}>
+            Join on a call with doctor now
+          </Text>
+        </View>
+      )}
     </View>
   );
 };

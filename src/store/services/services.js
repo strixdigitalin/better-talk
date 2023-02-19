@@ -217,6 +217,49 @@ export const startAppointmentAsync = createAsyncThunk(
   },
 );
 
+export const PostAppointment = async (
+  {
+    from,
+    to,
+    fromName,
+    acceptStatus,
+    startStatus,
+    time,
+    appointmentType,
+    dispatch,
+  },
+  callBack,
+) => {
+  var axios = require('axios');
+  var data = JSON.stringify({
+    from,
+    to,
+    time,
+    acceptStatus: false,
+    startStatus: false,
+    fromName: fromName,
+    appointmentType: 'permins',
+  });
+
+  var config = {
+    method: 'post',
+    url: STRIX_URL + '/api/appointments',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: data,
+  };
+
+  axios(config)
+    .then(function (response) {
+      console.log('appointmentresult', response.data);
+      callBack(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+
 export const postAppointmentAsync = createAsyncThunk(
   'users/postAppointmentAsync',
   ({
@@ -243,34 +286,6 @@ export const postAppointmentAsync = createAsyncThunk(
     // return null;
 
     // .post('https://rihal-be.herokuapp.com/api/appointments', {
-    var axios = require('axios');
-    var data = JSON.stringify({
-      from,
-      to,
-      time,
-      acceptStatus: false,
-      startStatus: false,
-      fromName: fromName,
-      appointmentType: 'permins',
-    });
-
-    var config = {
-      method: 'post',
-      url: STRIX_URL + '/api/appointments',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log('appointmentresult', response.data);
-        // callBack(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   },
 );
 
@@ -291,3 +306,31 @@ export const postRatingAsync = createAsyncThunk(
       });
   },
 );
+
+export const appointMentStarted = (
+  {id, acceptStatus, startStatus},
+  callBack,
+) => {
+  var myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
+
+  var raw = JSON.stringify({
+    acceptStatus: acceptStatus,
+    startStatus: startStatus,
+  });
+
+  var requestOptions = {
+    method: 'PUT',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow',
+  };
+
+  fetch(STRIX_URL + '/api/appointments/update/' + id, requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      console.log(result, '<<< this is appoint ment end result');
+      callBack(JSON.parse(result));
+    })
+    .catch(error => console.log('error', error));
+};

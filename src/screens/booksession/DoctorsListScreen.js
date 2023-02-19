@@ -360,11 +360,17 @@ const DoctorsListScreen = ({navigation}) => {
                       style={
                         doctor.isAvailable ? styles.greendot : styles.reddot
                       }></View>
-                    <Text style={styles.subheading2}>Available </Text>
+                    <Text
+                      style={{
+                        ...styles.subheading2,
+                        color: doctor?.isAvailable ? 'green' : 'red',
+                      }}>
+                      {doctor.isAvailable ? ' Available' : 'Not Available'}
+                    </Text>
                     <Text style={styles.subheading3}>
-                      {!doctor.isAvailable && (
+                      {/* {!doctor.isAvailable && (
                         <Text> in {doctor.minutes} mins</Text>
-                      )}
+                      )} */}
                     </Text>
                   </View>
                 </View>

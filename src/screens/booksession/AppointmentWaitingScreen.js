@@ -12,9 +12,11 @@ import notifee from '@notifee/react-native';
 const windowHeight = Dimensions.get('window').height;
 const date1 = moment().add(5, 'minutes');
 export const socketbase = 'https://hungry-skate-production.up.railway.app';
-const AppointmentWaitingScreen = ({navigation}) => {
+const AppointmentWaitingScreen = ({navigation, route}) => {
   const userId = useSelector(state => state.user.userId);
-  const appointmentId = useSelector(state => state.chat.appointmentId);
+  // const appointmentId = useSelector(state => state.chat.appointmentId);
+  console.log(route.params, '<<< this is parameter route');
+  const appointmentId = route.params.data._id;
   // const [days, hours, minutes, seconds] = useCountdown(date1);
   const [reqAccepted, setReqAccepted] = useState(false);
   const dispatch = useDispatch();
@@ -94,6 +96,7 @@ const AppointmentWaitingScreen = ({navigation}) => {
   }, []);
 
   useEffect(() => {
+    console.log('socket');
     socket.on('accept', ({message, from, to, fromDoc}) => {
       console.log('accept appointment');
       setReqAccepted(true);
@@ -109,7 +112,7 @@ const AppointmentWaitingScreen = ({navigation}) => {
   useEffect(() => {
     if (reqAccepted) {
       onDisplayNotification(true);
-      navigation.navigate('StartAppointment');
+      navigation.navigate('StartAppointment', {appointmentId: appointmentId});
     }
   }, [reqAccepted]);
 

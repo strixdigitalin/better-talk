@@ -63,6 +63,7 @@ import {
   setBalance,
 } from '../store/reducers/payReducer';
 import moment from 'moment';
+import {appointMentStarted} from '../store/services/services';
 
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -728,7 +729,7 @@ function MainApp({navigation}) {
               style={{
                 display: 'flex',
                 flexDirection: 'row',
-                marginRight: 30,
+                marginRight: 2,
                 width: 110,
                 justifyContent: 'space-between',
               }}>
@@ -737,16 +738,25 @@ function MainApp({navigation}) {
                 size={24}
                 color={'#990b19'}
                 onPress={() => {
-                  socket.emit('disconnect', {
-                    status: true,
-                    from: 456,
-                    to: 123,
-                    id: 123,
-                  });
-                  navigation.navigate('RateSession');
+                  appointMentStarted(
+                    {id: appointmentId, acceptStatus: true, startStatus: true},
+                    res => {
+                      console.log(res, '<<<< this is res');
+                      // return null;
+                      if (res.success) {
+                        socket.emit('endcall', {
+                          status: true,
+                          from: 456,
+                          to: 123,
+                          id: appointmentId,
+                        });
+                        navigation.navigate('RateSession');
+                      }
+                    },
+                  );
                 }}
               />
-              <MaterialCommunityIcons
+              {/* <MaterialCommunityIcons
                 name="video"
                 size={24}
                 color="#056AD0"
@@ -754,8 +764,8 @@ function MainApp({navigation}) {
                   dispatch(setMode('video'));
                   //navigation.navigate('VideoCall');
                 }}
-              />
-              <Icon
+              /> */}
+              {/* <Icon
                 name="call"
                 size={24}
                 color="#056AD0"
@@ -763,7 +773,7 @@ function MainApp({navigation}) {
                   dispatch(setMode('audio'));
                   //navigation.navigate('VoiceCall');
                 }}
-              />
+              /> */}
             </View>
           ),
         }}
