@@ -285,7 +285,7 @@ const DoctorsListScreen = ({navigation}) => {
                     // joinMeet(Link);
                     Linking.openURL(updatText?.link);
                   }}>
-                  &nbsp; Click here to open the link
+                  &nbsp; Click on this to talk to our customer support.
                 </Text>
               </Text>
             </View>

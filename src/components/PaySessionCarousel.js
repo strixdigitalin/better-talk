@@ -35,6 +35,7 @@ const PaySessionCarousel = ({
       title: 'Prime Pack',
       sessions: 1,
       mins: 60,
+      // price: 500,
       price: 500,
       imgUrl: prime,
     },
@@ -55,6 +56,7 @@ const PaySessionCarousel = ({
   ];
 
   const CarouselCardItem = ({item, index}) => {
+    // console.log(item, '<<<thisisoneitem');
     return (
       <LinearGradient
         start={{x: 0, y: 0}}
@@ -85,17 +87,20 @@ const PaySessionCarousel = ({
             setSessions(item.sessions);
             dispatch(setSessionType('persession'));
             try {
+              console.log('callingpayment');
               const result = await axios.post(
                 STRIX_URL + '/api/razorpay/createOrder',
                 {
-                  amount: (item.price + (item.price / 100) * 18) * 100,
+                  amount: item.price * 100,
+                  currency: 'INR',
                 },
               );
-              console.log(result.data, '<<< this is result data');
+              console.log(result, '<<< thisisresultdata');
               const {amount, id, currency} = result.data;
               setOrderId(id);
             } catch (err) {
               alert(err);
+              console.log('callingpaymen et');
             }
           }}
           style={styles.btnCarousel}>

@@ -39,6 +39,7 @@ export default function PayPerMin({navigation}) {
   const chatOngoing = useSelector(state => state.chat.chatOngoing);
   const minsRem = useSelector(state => state.chat.minsRem);
   const name = useSelector(state => state.user.name);
+  const mobile = useSelector(state => state.user.mobile);
   const userId = useSelector(state => state.user.userId);
   console.log('name: ', name);
   console.log('minsRem: in paypermin ', minsRem);
@@ -70,7 +71,7 @@ export default function PayPerMin({navigation}) {
       const result = await axios.post(STRIX_URL + '/api/razorpay/createOrder', {
         amount: amt + (amt / 100) * 18,
       });
-      console.log(result.data);
+      console.log(result.data, '<<<<this is payment order');
       const {amount, id, currency} = result.data;
       setOrderId(id);
       setAmountPayed(amount);
@@ -235,13 +236,13 @@ export default function PayPerMin({navigation}) {
               <Text style={styles.item}>Prime Pack * 1</Text>
               <Text style={styles.amt}>{amtToPay}</Text>
             </View>
-            <View style={styles.modalDetails}>
+            {/* <View style={styles.modalDetails}>
               <Text style={styles.item}>GST 18%</Text>
               <Text style={styles.amt}>{(amtToPay / 100) * 18}</Text>
-            </View>
+            </View> */}
             <View style={styles.modalDetails}>
               <Text style={styles.item}>TOTAL</Text>
-              <Text style={styles.amt}>{amtToPay + (amtToPay / 100) * 18}</Text>
+              <Text style={styles.amt}>{amtToPay}</Text>
             </View>
             <Button
               mode="contained"
@@ -251,14 +252,17 @@ export default function PayPerMin({navigation}) {
                 var options = {
                   description: 'Credits towards consultation',
                   currency: 'INR',
-                  key: 'rzp_test_QKNnJJd7t0TF4N',
-                  amount: amountPayed + (amountPayed / 100) * 18,
+                  // key: 'rzp_test_QKNnJJd7t0TF4N',
+                  key: 'rzp_live_gdgVvyvbg35IvZ',
+                  // key: 'c3QXdMz8PREfSQCNCP6laNk5',
+                  // amount: amountPayed,
+                  amount: 1,
                   name: 'Better Talk',
                   order_id: orderId,
                   prefill: {
-                    email: 'test.test@test.com',
-                    contact: '9191919191',
-                    name: 'Test Test',
+                    // email: 'test.test@test.com',
+                    contact: mobile,
+                    name: name,
                   },
                   theme: {color: '#056AD0'},
                 };

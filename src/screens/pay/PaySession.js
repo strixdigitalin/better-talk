@@ -40,6 +40,7 @@ export default function PaySession({navigation}) {
   const chatOngoing = useSelector(state => state.chat.chatOngoing);
   const availSessions = useSelector(state => state.pay.availSessions);
   const name = useSelector(state => state.user.name);
+  const mobile = useSelector(state => state.user.mobile);
   const userId = useSelector(state => state.user.userId);
 
   const data = [
@@ -172,13 +173,13 @@ export default function PaySession({navigation}) {
                 <Text style={styles.item}>Prime Pack * 1</Text>
                 <Text style={styles.amt}>{amount}</Text>
               </View>
-              <View style={styles.modalDetails}>
+              {/* <View style={styles.modalDetails}>
                 <Text style={styles.item}>GST 18%</Text>
                 <Text style={styles.amt}>{(amount / 100) * 18}</Text>
-              </View>
+              </View> */}
               <View style={styles.modalDetails}>
                 <Text style={styles.item}>TOTAL</Text>
-                <Text style={styles.amt}>{amount + (amount / 100) * 18}</Text>
+                <Text style={styles.amt}>{amount}</Text>
               </View>
               <Button
                 mode="contained"
@@ -189,14 +190,15 @@ export default function PaySession({navigation}) {
                     description: 'Credits towards consultation',
                     currency: 'INR',
                     // key: 'NECwcvSWo2wmzrIZYxR6GgZD',
-                    key: 'rzp_test_af0Z96nZAlvt0U',
-                    amount: (amount + (amount / 100) * 18) * 100,
+                    key: 'rzp_live_gdgVvyvbg35IvZ',
+                    amount: amount * 100,
+                    // amount: 1,
                     name: 'Better Talk',
                     order_id: orderId,
                     prefill: {
                       email: 'test.test@test.com',
-                      contact: '9191919191',
-                      name: 'Test Test',
+                      contact: mobile,
+                      name: name,
                     },
                     theme: {color: '#056AD0'},
                   };
@@ -209,7 +211,8 @@ export default function PaySession({navigation}) {
                       dispatch(
                         postNotificationAsync({
                           id: userId,
-                          content: amount,
+                          // content: amount,
+                          content: 1,
                           type: 'payment',
                         }),
                       );
