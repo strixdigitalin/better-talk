@@ -27,7 +27,7 @@ export default function SignupScreen({navigation}) {
           placeholder="Enter Phone number"
           value={text}
           onChangeText={text => {
-            onChangeText(text);
+            setText(text);
           }}
           style={styles.nameInput}
           outlineColor={'#323F4D'}
@@ -47,7 +47,11 @@ export default function SignupScreen({navigation}) {
           mode="contained"
           uppercase={false}
           loading={false}
-          onPress={() => navigation.navigate('SignupOtp')}
+          onPress={() =>
+            navigation.navigate('SignupOtp', {
+              mobile: text,
+            })
+          }
           style={styles.btnOnboard}>
           <Text style={styles.btnText}>Send OTP</Text>
         </Button>

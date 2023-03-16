@@ -3,8 +3,11 @@ import {StyleSheet, View, Text, Dimensions} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import {TextInput} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateAgeAsync, updateGenderAsync } from '../../store/services/userServices';
+import {useSelector, useDispatch} from 'react-redux';
+import {
+  updateAgeAsync,
+  updateGenderAsync,
+} from '../../store/services/userServices';
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -12,7 +15,7 @@ export default function GenDetailsScreen() {
   const [showAgeDropDown, setShowAgeDropDown] = useState(false);
   const genderInit = useSelector(state => state.user.gender);
   console.log('genderInit: ', genderInit);
-  const [gender, setGender] = useState("");
+  const [gender, setGenderD] = useState('');
   console.log('gender: ', gender);
   const [showGenderDropDown, setGenderDropDown] = useState(false);
   const ageInit = useSelector(state => state.user.age);
@@ -48,7 +51,15 @@ export default function GenDetailsScreen() {
       <SelectDropdown
         data={genderList}
         onSelect={(selectedItem, index) => {
-          dispatch(updateGenderAsync({id: userId, gender: selectedItem, dispatch: dispatch}));
+          dispatch(
+            updateGenderAsync({
+              id: userId,
+              gender: selectedItem,
+              dispatch: dispatch,
+            }),
+          );
+          console.log(selectedItem, '<<< gender');
+          dispatch(setGender(selectedItem));
         }}
         defaultButtonText={genderInit}
         buttonTextAfterSelection={(selectedItem, index) => {

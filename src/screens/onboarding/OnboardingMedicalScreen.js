@@ -21,6 +21,7 @@ const windowWidth = Dimensions.get('window').width;
 const OnboardingMedicalScreen = ({navigation}) => {
   const name = useSelector(state => state.user.name);
   const gender = useSelector(state => state.user.gender);
+  const mobile = useSelector(state => state.user.mobile);
   const qualification = useSelector(state => state.user.qualification);
   const location = useSelector(state => state.user.location);
   const age = useSelector(state => state.user.age);
@@ -77,6 +78,7 @@ const OnboardingMedicalScreen = ({navigation}) => {
                   location: location,
                   qualification: qualification,
                   medHistory: text,
+                  mobile: mobile,
                   upcomingApp: [],
                   freeSession: false,
                   minutes: 0,
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
     height: windowHeight,
     paddingHorizontal: 15,
     backgroundColor: '#FFFFFF',
-    position: "relative",
+    position: 'relative',
   },
   imgOnboard: {
     width: 200,

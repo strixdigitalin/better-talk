@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, Dimensions} from 'react-native';
+import {StyleSheet, View, Text, Dimensions, Alert} from 'react-native';
 import {Button} from 'react-native-paper';
 import moment from 'moment';
 import io from 'socket.io-client';
 import {useCountdown} from '../../hooks/useCountdown';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAppointmentAsync} from '../../store/services/services';
+import {
+  cancleAppointment,
+  getAppointmentAsync,
+} from '../../store/services/services';
 import {useTimer, useStopwatch} from 'react-timer-hook';
 import notifee from '@notifee/react-native';
 
@@ -105,7 +108,7 @@ const AppointmentWaitingScreen = ({navigation, route}) => {
   useEffect(() => {
     socket.on('disconnect', ({message, from, to, fromDoc}) => {
       console.log('disconnect');
-      setReqAccepted(true);
+      // setReqAccepted(true);
     });
   }, [socket]);
 
@@ -152,7 +155,13 @@ const AppointmentWaitingScreen = ({navigation, route}) => {
         mode="contained"
         uppercase={false}
         onPress={() => {
-          navigation.goBack();
+          cancleAppointment(appointmentId, res => {
+            console.log('cancel appoitment', res, '<<<<cancel appointment');
+            if (res.success) {
+              Alert.alert('Appointment Canceled');
+              navigation.goBack();
+            }
+          });
         }}
         style={styles.btnOnboard}>
         <Text style={styles.btnText}>Cancel Appointment</Text>

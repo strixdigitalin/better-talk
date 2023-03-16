@@ -47,20 +47,20 @@ export default function PaySession({navigation}) {
       title: 'Prime Pack',
       sessions: 1,
       mins: 60,
-      price: 1200,
+      price: 400,
     },
-    {
-      title: 'Trio Pack',
-      sessions: 3,
-      mins: 180,
-      price: 3600,
-    },
-    {
-      title: 'Quinary Pack',
-      sessions: 5,
-      mins: 300,
-      price: 6000,
-    },
+    // {
+    //   title: 'Trio Pack',
+    //   sessions: 3,
+    //   mins: 180,
+    //   price: 3600,
+    // },
+    // {
+    //   title: 'Quinary Pack',
+    //   sessions: 5,
+    //   mins: 300,
+    //   price: 6000,
+    // },
   ];
 
   const availSessionUpdater = () => {
@@ -148,8 +148,9 @@ export default function PaySession({navigation}) {
           </View>
           <Text style={styles.subheading}>How it works</Text>
           <Text style={styles.detailsPack}>
-            Prime pack gives a user &nbsp;{data[active].sessions}&nbsp;sessions/
-            {data[active].mins}&nbsp; mins of session/appointment time with
+            Prime pack gives a user &nbsp;{data[active]?.sessions}
+            &nbsp;sessions/
+            {data[active]?.mins}&nbsp; mins of session/appointment time with
             their preferred doctor.
           </Text>
         </ScrollView>
@@ -187,7 +188,8 @@ export default function PaySession({navigation}) {
                   var options = {
                     description: 'Credits towards consultation',
                     currency: 'INR',
-                    key: 'rzp_test_QKNnJJd7t0TF4N',
+                    // key: 'NECwcvSWo2wmzrIZYxR6GgZD',
+                    key: 'rzp_test_af0Z96nZAlvt0U',
                     amount: (amount + (amount / 100) * 18) * 100,
                     name: 'Better Talk',
                     order_id: orderId,

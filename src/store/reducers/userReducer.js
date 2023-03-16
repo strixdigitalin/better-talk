@@ -27,6 +27,7 @@ export const userSlice = createSlice({
     medHistory: '',
     freeSession: '',
     location: '',
+    mobile: '',
     upcomingApp: [],
     isLoggedIn: false,
     userId: '639960855e84e3449b3e224f',
@@ -64,6 +65,12 @@ export const userSlice = createSlice({
       return {
         ...state,
         medHistory: action.payload,
+      };
+    },
+    setMobileNumber: (state, action) => {
+      return {
+        ...state,
+        mobile: action.payload,
       };
     },
     setLocation: (state, action) => {
@@ -143,6 +150,7 @@ export const {
   setSession,
   setAge,
   setFreeSession,
+  setMobileNumber,
   setGender,
   setMedHistory,
   setUpcomingApp,

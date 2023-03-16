@@ -35,23 +35,23 @@ const PaySessionCarousel = ({
       title: 'Prime Pack',
       sessions: 1,
       mins: 60,
-      price: 1200,
+      price: 500,
       imgUrl: prime,
     },
-    {
-      title: 'Trio Pack',
-      sessions: 3,
-      mins: 180,
-      price: 3600,
-      imgUrl: trio,
-    },
-    {
-      title: 'Quinary Pack',
-      sessions: 5,
-      mins: 300,
-      price: 6000,
-      imgUrl: quinary,
-    },
+    // {
+    //   title: 'Trio Pack',
+    //   sessions: 3,
+    //   mins: 180,
+    //   price: 3600,
+    //   imgUrl: trio,
+    // },
+    // {
+    //   title: 'Quinary Pack',
+    //   sessions: 5,
+    //   mins: 300,
+    //   price: 6000,
+    //   imgUrl: quinary,
+    // },
   ];
 
   const CarouselCardItem = ({item, index}) => {
@@ -91,7 +91,7 @@ const PaySessionCarousel = ({
                   amount: (item.price + (item.price / 100) * 18) * 100,
                 },
               );
-              console.log(result.data);
+              console.log(result.data, '<<< this is result data');
               const {amount, id, currency} = result.data;
               setOrderId(id);
             } catch (err) {
@@ -121,7 +121,7 @@ const PaySessionCarousel = ({
         activeSlideOffset={10}
       />
       <Pagination
-        dotsLength={3}
+        dotsLength={1}
         activeDotIndex={activeSlide}
         dotStyle={{
           width: 10,

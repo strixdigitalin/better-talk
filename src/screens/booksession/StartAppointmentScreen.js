@@ -10,9 +10,9 @@ const windowHeight = Dimensions.get('window').height;
 
 const StartAppointmentScreen = ({navigation, route}) => {
   const userId = useSelector(state => state.user.userId);
-  // const appointmentId = useSelector(state => state.chat.appointmentId);
+  const appointmentId = useSelector(state => state.chat.appointmentId);
   // console.log(route.params, '<<<< startappointmentscreen');
-  const appointmentId = route.params.appointmentId;
+  // const appointmentId = route.params.appointmentId;
   const socket = io(socketbase, {
     query: {userId: userId, appointmentId: appointmentId},
     reconnectionDelay: 1000,
@@ -28,9 +28,9 @@ const StartAppointmentScreen = ({navigation, route}) => {
     navigation.navigate('ChatDoctor');
     socket.emit('start', {
       status: true,
-      from: 456,
+      from: userId,
       to: 123,
-      id: 123,
+      id: appointmentId,
     });
   }
 

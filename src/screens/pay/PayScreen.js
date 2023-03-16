@@ -7,12 +7,12 @@ import PaySession from './PaySession';
 const windowHeight = Dimensions.get('window').height;
 
 export default function PayScreen({navigation}) {
-  const [toggleValue, setToggleValue] = useState(true);
+  const [toggleValue, setToggleValue] = useState(false);
   return (
     <View style={styles.rootContainer}>
       {/* <View style={styles.toggleContainer}> */}
       <View style={styles.toggleOuter}>
-        <View
+        {/* <View
           style={
             toggleValue
               ? {...styles.firstTab, borderWidth: 0, borderLeftWidth: 1}
@@ -28,7 +28,7 @@ export default function PayScreen({navigation}) {
             }}>
             Pay Per Min
           </Text>
-        </View>
+        </View> */}
         <View
           style={
             toggleValue
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '80%',
     justifyContent: 'center',
-    borderWidth: 1,
+    // borderWidth: 1,
     margin: 'auto',
     borderLeftWidth: 0,
     borderRightWidth: 0,

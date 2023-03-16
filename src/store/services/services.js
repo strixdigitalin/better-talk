@@ -116,13 +116,28 @@ export const postUserAsync = createAsyncThunk(
     age,
     gender,
     medHistory,
+    mobile,
     freeSession,
     upcomingApp,
     dispatch,
     sessions,
     minutes,
   }) => {
-    console.log('callingpostuserasync------>');
+    console.log('callingpostuserasync------>', {
+      name,
+      qualification,
+      location,
+      age,
+      gender,
+      mobile,
+      medHistory,
+      freeSession,
+      upcomingApp,
+      dispatch,
+      sessions,
+      minutes,
+    });
+    // return null;
     return (
       axios
         // .post('https://rihal-be.herokuapp.com/api/users', {
@@ -133,6 +148,7 @@ export const postUserAsync = createAsyncThunk(
           gender: gender,
           location: location,
           medHistory: medHistory,
+          mobile,
           freeSession: freeSession,
           upcomingApp: upcomingApp,
           sessions: sessions,
@@ -332,5 +348,34 @@ export const appointMentStarted = (
       console.log(result, '<<< this is appoint ment end result');
       callBack(JSON.parse(result));
     })
+    .catch(error => console.log('error', error));
+};
+
+export const getUpdateText = async callBack => {
+  const {data} = await axios.get(STRIX_URL + '/api/settings');
+  callBack(data);
+};
+
+export const cancleAppointment = async (id, callBack) => {
+  var myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
+
+  var raw = JSON.stringify({
+    acceptStatus: false,
+    startStatus: false,
+    isDeleted: false,
+    isCanceled: true,
+  });
+
+  var requestOptions = {
+    method: 'PUT',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow',
+  };
+
+  fetch(STRIX_URL + '/api/appointments/update/' + id, requestOptions)
+    .then(response => response.text())
+    .then(result => callBack(JSON.parse(result)))
     .catch(error => console.log('error', error));
 };

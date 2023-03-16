@@ -14,6 +14,7 @@ const windowWidth = Dimensions.get('window').width;
 
 const OnboardingMoreScreen = ({navigation}) => {
   const name = useSelector(state => state.user.name);
+  const gender = useSelector(state => state.user.gender);
   const [text, setText] = useState('');
   const dispatch = useDispatch();
   const [showLocationDropDown, setshowLocationDropDown] = useState(false);
@@ -39,6 +40,7 @@ const OnboardingMoreScreen = ({navigation}) => {
     'Corporate Professional',
     'Tradesman',
   ];
+  console.log('thisisgender', gender);
 
   return (
     <View style={styles.containerRoot}>
@@ -165,7 +167,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 5,
     left: 20,
-    width: "100%",
+    width: '100%',
     position: 'absolute',
     bottom: 97,
   },

@@ -25,7 +25,7 @@ import {
 } from '../../store/reducers/bookReducer';
 import {setDocSelected} from '../../store/reducers/chatReducer';
 import {useDispatch, useSelector} from 'react-redux';
-import {getDoctorsAsync} from '../../store/services/services';
+import {getDoctorsAsync, getUpdateText} from '../../store/services/services';
 import {getNotificationsAsync} from '../../store/services/notificationservices';
 import {selectDoctors} from '../../store/reducers/docReducer';
 import LinearGradient from 'react-native-linear-gradient';
@@ -83,6 +83,7 @@ const DoctorsListScreen = ({navigation}) => {
   const freeUsed = useSelector(state => state.book.freeUsed);
   const scrollLength = itemsToRender.length * 100 + 100;
   const [refreshing, setRefreshing] = React.useState(false);
+  const [updatText, setUpdatText] = useState({});
   const dispatch = useDispatch();
 
   const appointmentsList = [
@@ -192,6 +193,10 @@ const DoctorsListScreen = ({navigation}) => {
     console.log('loading: ', loading);
     console.log('displayDoctors: ', displayDoctors);
     setItemsToRender(displayDoctors);
+    getUpdateText(res => {
+      console.log(res, '<<<<this isupdatetext');
+      setUpdatText(res.data[0]);
+    });
   }, [loading, displayDoctors]);
 
   const showRating = arr => {
@@ -272,13 +277,13 @@ const DoctorsListScreen = ({navigation}) => {
             </View>
             <View style={styles.contentContainer}>
               <Text style={styles.trialContent}>
-                We will give regular updates here
+                {updatText?.text}
                 <Text
                   style={styles.trialBold}
                   onPress={() => {
                     // Alert.alert('clicked');
                     // joinMeet(Link);
-                    Linking.openURL('https://www.google.com');
+                    Linking.openURL(updatText?.link);
                   }}>
                   &nbsp; Click here to open the link
                 </Text>

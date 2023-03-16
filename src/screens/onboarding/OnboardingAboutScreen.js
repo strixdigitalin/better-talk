@@ -72,6 +72,7 @@ const OnboardingAboutScreen = ({navigation}) => {
             data={genderList}
             onSelect={(selectedItem, index) => {
               setGenderTemp(selectedItem);
+              console.log(selectedItem, '<<<selecteditem');
             }}
             defaultButtonText={'Gender'}
             buttonTextAfterSelection={(selectedItem, index) => {
@@ -103,6 +104,7 @@ const OnboardingAboutScreen = ({navigation}) => {
             onPress={() => {
               navigation.navigate('OnboardingMore');
               dispatch(setAge(ageTemp));
+              dispatch(setGender(genderTemp));
             }}
             style={styles.btnOnboard}>
             <Text style={styles.btnText}>Next</Text>

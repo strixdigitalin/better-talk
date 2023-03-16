@@ -14,7 +14,10 @@ import loginvecgraphic1 from '../../assets/loginvecgraphic1.png';
 import loginvecgraphic2 from '../../assets/loginvecgraphic2.png';
 import loginvecgraphic3 from '../../assets/loginvecgraphic3.png';
 import {useDispatch} from 'react-redux';
-import {setiIsLoggedIn} from '../../store/reducers/userReducer';
+import {
+  setiIsLoggedIn,
+  setMobileNumber,
+} from '../../store/reducers/userReducer';
 import auth from '@react-native-firebase/auth';
 import {useSelector} from 'react-redux';
 const windowHeight = Dimensions.get('window').height;
@@ -43,11 +46,11 @@ export default function LoginOtpScreen({route, navigation}) {
   async function confirmCode() {
     try {
       console.log('code: ', code);
-      console.log('confirmation', confirm);
+      // console.log('confirmation', confirm);
       const response = await confirm.confirm(code);
       if (response) {
         console.log('response: ', response);
-
+        dispatch(setMobileNumber(number));
         navigation.navigate('OnboardingName');
       }
     } catch (error) {

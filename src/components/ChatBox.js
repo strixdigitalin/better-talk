@@ -9,6 +9,7 @@ import {
   Image,
   KeyboardAvoidingView,
   ScrollView,
+  Linking,
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicon from 'react-native-vector-icons/Ionicons';

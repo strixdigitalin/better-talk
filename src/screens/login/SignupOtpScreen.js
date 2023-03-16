@@ -15,8 +15,9 @@ import loginvecgraphic3 from '../../assets/loginvecgraphic3.png';
 
 const windowHeight = Dimensions.get('window').height;
 
-export default function SignupOtpScreen({navigation}) {
+export default function SignupOtpScreen({navigation, route}) {
   const [text, setText] = useState('');
+  console.log(route, '<<<thisisroute');
   return (
     <View style={styles.rootContainer}>
       <Image source={login} style={styles.loginImg} />
