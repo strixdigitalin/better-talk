@@ -19,3 +19,46 @@ export const updateImage = (userid, file, CallBack) => {
     })
     .catch(error => console.log('error', error));
 };
+
+export const sendOTPAPI = (num, callBack) => {
+  var myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
+
+  var raw = JSON.stringify({
+    mobile: num,
+  });
+
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow',
+  };
+
+  fetch(STRIX_URL + '/api/verify/sendotp', requestOptions)
+    .then(response => response.text())
+    .then(result => callBack(JSON.parse(result)))
+    .catch(error => console.log('error', error));
+};
+
+export const VerifyOTPAPI = (payload, callBack) => {
+  var myHeaders = new Headers();
+  myHeaders.append('Content-Type', 'application/json');
+
+  var raw = JSON.stringify({
+    mobile: payload.mobile,
+    code: payload.code,
+  });
+
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow',
+  };
+
+  fetch(STRIX_URL + '/api/verify/otp', requestOptions)
+    .then(response => response.text())
+    .then(result => callBack(JSON.parse(result)))
+    .catch(error => console.log('error', error));
+};

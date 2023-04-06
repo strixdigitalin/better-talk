@@ -16,6 +16,7 @@ import loginvecgraphic2 from '../../assets/loginvecgraphic2.png';
 import loginvecgraphic3 from '../../assets/loginvecgraphic3.png';
 import {getDoctorsAsync, getUserIdAsync} from '../../store/services/services';
 import {useDispatch} from 'react-redux';
+import {sendOTPAPI} from '../../store/services/StrixAPI/USerAPI';
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -29,7 +30,12 @@ export default function LoginScreen({navigation}) {
     setConfirm(confirmation);
     navigation.navigate('LoginOtp', {number: text});
   }
-
+  const sendOtp = () => {
+    sendOTPAPI(text, res => {
+      if (res.message == 'Code is sent.')
+        navigation.navigate('LoginOtp', {number: text});
+    });
+  };
   return (
     <View style={styles.rootContainer}>
       <Image source={login} style={styles.loginImg} />
@@ -65,7 +71,7 @@ export default function LoginScreen({navigation}) {
           loading={false}
           onPress={() => {
             // navigation.navigate('OnboardingName');
-            navigation.navigate('LoginOtp', {number: text});
+            sendOtp();
           }}
           style={styles.btnOnboard}>
           <Text style={styles.btnText}>Send OTP</Text>

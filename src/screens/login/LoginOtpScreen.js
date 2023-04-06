@@ -20,6 +20,7 @@ import {
 } from '../../store/reducers/userReducer';
 import auth from '@react-native-firebase/auth';
 import {useSelector} from 'react-redux';
+import {VerifyOTPAPI} from '../../store/services/StrixAPI/USerAPI';
 const windowHeight = Dimensions.get('window').height;
 
 export default function LoginOtpScreen({route, navigation}) {
@@ -32,7 +33,7 @@ export default function LoginOtpScreen({route, navigation}) {
   const concatNum = '+91' + number;
   console.log('concatNum: ', concatNum);
   useEffect(() => {
-    signInWithPhoneNumber();
+    // signInWithPhoneNumber();
   }, []);
 
   async function signInWithPhoneNumber() {
@@ -47,12 +48,19 @@ export default function LoginOtpScreen({route, navigation}) {
     try {
       console.log('code: ', code);
       // console.log('confirmation', confirm);
-      const response = await confirm.confirm(code);
-      if (response) {
-        console.log('response: ', response);
-        dispatch(setMobileNumber(number));
-        navigation.navigate('OnboardingName');
-      }
+      VerifyOTPAPI({mobile: number, code}, res => {
+        console.log(res, '<<<this is code otp');
+        if (!res.status) {
+          Alert.alert(res.message);
+        } else {
+          dispatch(setMobileNumber(number));
+          navigation.navigate('OnboardingName');
+        }
+      });
+      // const response = await confirm.confirm(code);
+      // if (response) {
+      //   console.log('response: ', response);
+      // }
     } catch (error) {
       console.log('error: ', error);
       console.log('error: ', error.code);
