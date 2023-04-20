@@ -35,40 +35,104 @@ const ChatBox = ({msgsToRender, typing, whoTyping, Link}) => {
   // <View style={{bottom: 70}}>
   return (
     <View style={{position: 'absolute', bottom: 70}}>
-      {msgsToRender.length !== 0 &&
-        msgsToRender.map(item => {
-          return (
-            <ScrollView
-              contentContainerStyle={styles.chatContainer}
-              ref={scrollViewRef}>
+      <ScrollView
+        ref={scrollViewRef}
+        style={{
+          height: styles.screenHeight.height - 130,
+        }}>
+        {msgsToRender.length !== 0 &&
+          msgsToRender.map((item, index) => {
+            if (index == 1) {
+              return (
+                <View
+                  contentContainerStyle={
+                    item.from != userId
+                      ? styles.userChatContainer
+                      : styles.chatContainer
+                  }
+                  // ref={scrollViewRef}
+                >
+                  <View
+                    style={
+                      item.from != userId
+                        ? styles.msgContainerUser
+                        : styles.msgContainer
+                    }>
+                    {item.from != userId ? null : (
+                      <Image source={avatar1} style={styles.imgAvatar} />
+                    )}
+                    <View
+                      style={
+                        item.from != userId
+                          ? styles.contentContainerUser
+                          : styles.contentContainer
+                      }>
+                      <Text
+                        style={
+                          item.from != userId
+                            ? styles.msgTextUser
+                            : styles.msgText
+                        }>
+                        {item.message}
+                      </Text>
+                    </View>
+                    {item.from != userId ? (
+                      <Image source={avatar1} style={styles.imgAvatarUser} />
+                    ) : null}
+                  </View>
+
+                  {/* {typing && whoTyping !== userId ? (
+                <View style={styles.typingCont}>
+                  <Text style={styles.isTyping}>Dr. Murphy is Typing</Text>
+                  <LottieView
+                    source={require('../assets/typing.json')}
+                    autoPlay
+                    style={styles.lottieTyping}
+                  />
+                </View>
+              ) : null} */}
+                </View>
+              );
+            }
+            return (
               <View
-                style={
+                contentContainerStyle={
                   item.from === userId
-                    ? styles.msgContainerUser
-                    : styles.msgContainer
-                }>
-                {item.from === userId ? null : (
-                  <Image source={avatar1} style={styles.imgAvatar} />
-                )}
+                    ? styles.userChatContainer
+                    : styles.chatContainer
+                }
+                // ref={scrollViewRef}
+              >
                 <View
                   style={
                     item.from === userId
-                      ? styles.contentContainerUser
-                      : styles.contentContainer
+                      ? styles.msgContainerUser
+                      : styles.msgContainer
                   }>
-                  <Text
+                  {item.from === userId ? null : (
+                    <Image source={avatar1} style={styles.imgAvatar} />
+                  )}
+                  <View
                     style={
-                      item.from === userId ? styles.msgTextUser : styles.msgText
+                      item.from === userId
+                        ? styles.contentContainerUser
+                        : styles.contentContainer
                     }>
-                    {item.message}
-                  </Text>
+                    <Text
+                      style={
+                        item.from === userId
+                          ? styles.msgTextUser
+                          : styles.msgText
+                      }>
+                      {item.message}
+                    </Text>
+                  </View>
+                  {item.from === userId ? (
+                    <Image source={avatar1} style={styles.imgAvatarUser} />
+                  ) : null}
                 </View>
-                {item.from === userId ? (
-                  <Image source={avatar1} style={styles.imgAvatarUser} />
-                ) : null}
-              </View>
 
-              {/* {typing && whoTyping !== userId ? (
+                {/* {typing && whoTyping !== userId ? (
               <View style={styles.typingCont}>
                 <Text style={styles.isTyping}>Dr. Murphy is Typing</Text>
                 <LottieView
@@ -78,9 +142,10 @@ const ChatBox = ({msgsToRender, typing, whoTyping, Link}) => {
                 />
               </View>
             ) : null} */}
-            </ScrollView>
-          );
-        })}
+              </View>
+            );
+          })}
+      </ScrollView>
       {Link != '' && (
         <View
           style={{
@@ -123,12 +188,35 @@ const ChatBox = ({msgsToRender, typing, whoTyping, Link}) => {
 const styles = StyleSheet.create({
   chatContainer: {
     // marginBottom: 40,
-    height: '100%',
+    // height: '100%',
     // display: 'flex',
+    // borderWidth: 1,
+    width: '100%',
+    alignSelf: 'flex-end',
+    flexDirection: 'row',
+
+    // justifyContent: 'flex-end',
+
     // flexDirection: 'column',
     // justifyContent: 'center',
-    position: 'relative',
+    // position: 'relative',
+    // marginRight: 0,
+    right: 0,
     //backgroundColor: "blue",
+  },
+  screenHeight: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+  userChatContainer: {
+    height: '100%',
+
+    width: '100%',
+    // alignSelf: 'flex-end',
+    flexDirection: 'row',
+    // justifyContent: 'flex-end',
+    // backgroundColor: 'red',
+    right: 0,
   },
   inputContainer: {
     display: 'flex',
@@ -160,18 +248,26 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     paddingVertical: 12,
     paddingHorizontal: 20,
+    height: '100%',
   },
   msgText: {
     fontFamily: 'Inter-Medium',
     fontSize: 14,
     lineHeight: 24,
     color: '#FFFFFF',
+    // borderWidth: 1,
+    // height: '100%',
   },
   msgContainerUser: {
-    alignSelf: 'flex-end',
     display: 'flex',
     flexDirection: 'row',
     marginTop: 15,
+    textAlign: 'right',
+    alignSelf: 'flex-end',
+    width: '100%',
+    justifyContent: 'flex-end',
+
+    // borderWidth: 1,
   },
   contentContainerUser: {
     backgroundColor: '#FCFCFC',

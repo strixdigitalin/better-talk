@@ -110,7 +110,7 @@ const ChatScreen = ({navigation}) => {
                 <TextInput
                   style={styles.input}
                   color="#7C98B6"
-                  placeholder="Write a message...2"
+                  placeholder="Write a message..."
                   value={pvtMsg}
                   onChangeText={text => {
                     changeTxtHandler(text);
@@ -175,6 +175,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     justifyContent: 'space-around',
     paddingBottom: 20,
+    // borderWidth: 1,
+
+    // borderWidth: 1,
+    // width: '100%',
   },
   inputContainer: {
     display: 'flex',

@@ -193,6 +193,7 @@ const DoctorsListScreen = ({navigation}) => {
     console.log('loading: ', loading);
     console.log('displayDoctors: ', displayDoctors);
     setItemsToRender(displayDoctors);
+    navigation.navigate('ChatDoctor');
     getUpdateText(res => {
       console.log(res, '<<<<this isupdatetext');
       setUpdatText(res.data[0]);

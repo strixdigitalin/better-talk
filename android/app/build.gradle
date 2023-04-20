@@ -135,20 +135,17 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
+
         applicationId "com.reactfe"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
            multiDexEnabled true
-        versionCode 23
-        versionName "1.0.23"
+        versionCode 25
+        versionName "1.0.25"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
-
         if (isNewArchitectureEnabled()) {
             // We configure the NDK build only if you decide to opt-in for the New Architecture.
             externalNativeBuild {
-
-
-                
                 ndkBuild {
                     arguments "APP_PLATFORM=android-21",
                         "APP_STL=c++_shared",
