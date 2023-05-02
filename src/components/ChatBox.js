@@ -42,58 +42,6 @@ const ChatBox = ({msgsToRender, typing, whoTyping, Link}) => {
         }}>
         {msgsToRender.length !== 0 &&
           msgsToRender.map((item, index) => {
-            if (index == 1) {
-              return (
-                <View
-                  contentContainerStyle={
-                    item.from != userId
-                      ? styles.userChatContainer
-                      : styles.chatContainer
-                  }
-                  // ref={scrollViewRef}
-                >
-                  <View
-                    style={
-                      item.from != userId
-                        ? styles.msgContainerUser
-                        : styles.msgContainer
-                    }>
-                    {item.from != userId ? null : (
-                      <Image source={avatar1} style={styles.imgAvatar} />
-                    )}
-                    <View
-                      style={
-                        item.from != userId
-                          ? styles.contentContainerUser
-                          : styles.contentContainer
-                      }>
-                      <Text
-                        style={
-                          item.from != userId
-                            ? styles.msgTextUser
-                            : styles.msgText
-                        }>
-                        {item.message}
-                      </Text>
-                    </View>
-                    {item.from != userId ? (
-                      <Image source={avatar1} style={styles.imgAvatarUser} />
-                    ) : null}
-                  </View>
-
-                  {/* {typing && whoTyping !== userId ? (
-                <View style={styles.typingCont}>
-                  <Text style={styles.isTyping}>Dr. Murphy is Typing</Text>
-                  <LottieView
-                    source={require('../assets/typing.json')}
-                    autoPlay
-                    style={styles.lottieTyping}
-                  />
-                </View>
-              ) : null} */}
-                </View>
-              );
-            }
             return (
               <View
                 contentContainerStyle={

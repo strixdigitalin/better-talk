@@ -9,7 +9,9 @@ import {
   Image,
   KeyboardAvoidingView,
   ScrollView,
+  BackHandler,
   Linking,
+  Alert,
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -50,6 +52,39 @@ const ChatScreen = ({navigation}) => {
   const now = moment();
   const sessionEnd = moment().add(60, 'minutes');
   const sessionLow = moment().add(55, 'minutes');
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        Alert.alert(
+          'Alert',
+          'Call will be ended if you leave.',
+          [
+            {
+              text: 'Leave',
+              onPress: () => navigation.goBack(),
+              style: 'cancel',
+            },
+            {
+              text: 'Stay here',
+              onPress: () => {},
+              style: 'cancel',
+            },
+          ],
+          {
+            cancelable: true,
+            onDismiss: () =>
+              Alert.alert(
+                'This alert was dismissed by tapping outside of the alert dialog.',
+              ),
+          },
+        );
+        return true;
+      },
+    );
+    return () => backHandler.remove();
+  }, []);
 
   useEffect(() => {
     dispatch(setSessionEnd(sessionEnd));

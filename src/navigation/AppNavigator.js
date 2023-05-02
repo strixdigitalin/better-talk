@@ -722,7 +722,7 @@ function MainApp({navigation}) {
         name="ChatDoctor"
         component={ChatScreen}
         options={{
-          headerLeft: () => <BackButton />,
+          headerLeft: () => <View></View>,
           headerTitle: () => <HeaderTitleChat />,
           headerRight: () => (
             <View
