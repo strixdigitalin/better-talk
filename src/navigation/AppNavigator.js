@@ -64,6 +64,7 @@ import {
 } from '../store/reducers/payReducer';
 import moment from 'moment';
 import {appointMentStarted} from '../store/services/services';
+import EasePay from '../screens/pay/EasePay';
 
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -645,6 +646,44 @@ function MainApp({navigation}) {
       <Stack.Screen
         name="AppointmentWaiting"
         component={AppointmentWaitingScreen}
+        options={{
+          headerLeft: () => <BackButton />,
+          headerTitle: () => (
+            <View>
+              <Text
+                style={{
+                  fontFamily: 'Inter-Medium',
+                  fontSize: 18,
+                  lineHeight: 26,
+                  color: '#33475B',
+                }}>
+                {name}
+              </Text>
+            </View>
+          ),
+          headerRight: () => (
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                marginRight: 30,
+                width: 70,
+                justifyContent: 'space-between',
+              }}>
+              <MaterialCommunityIcons
+                name="video"
+                size={24}
+                color="#056AD0"
+                onPress={() => {}}
+              />
+              <Icon name="call" size={24} color="#056AD0" />
+            </View>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="EasePay"
+        component={EasePay}
         options={{
           headerLeft: () => <BackButton />,
           headerTitle: () => (
