@@ -103,7 +103,7 @@ export default function PaySession({navigation}) {
       .then(result => {
         let data = JSON.parse(result);
         console.log(data, '<<<<thisisdata');
-        if (data.status) navigation.navigate('EasePay', {data: data.data});
+        if (data.status) navigation.navigate('EaseBuzz', {data: data.data});
       })
       .catch(error => console.log('error', error));
   };
@@ -238,7 +238,7 @@ export default function PaySession({navigation}) {
                   //   .then(data => {
                   //     // handle success
                   //     //alert(`Success: ${data.razorpay_payment_id}`);
-                  //     availSessionUpdater();
+                  availSessionUpdater();
                   //     dispatch(
                   //       postNotificationAsync({
                   //         id: userId,
