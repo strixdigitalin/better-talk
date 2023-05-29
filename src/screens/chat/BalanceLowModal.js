@@ -15,7 +15,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useSelector, useDispatch} from 'react-redux';
 import {useTimer, useStopwatch} from 'react-timer-hook';
 import lowbal from '../../assets/lowbal.png';
-import { setSessionEnd } from '../../store/reducers/chatReducer';
+import {setSessionEnd} from '../../store/reducers/chatReducer';
 import moment from 'moment';
 
 export default function BalanceLowModal(props) {
@@ -97,9 +97,7 @@ export default function BalanceLowModal(props) {
               <Text style={styles.btnModalText}>Recharge</Text>
             </Button>
             <TouchableOpacity style={styles.cancelModal} onPress={hideModal}>
-              <Text style={styles.cancelModalText}>
-                Cancel
-              </Text>
+              <Text style={styles.cancelModalText}>Cancel</Text>
             </TouchableOpacity>
           </Modal>
         </>
@@ -126,10 +124,8 @@ export default function BalanceLowModal(props) {
               style={styles.btnModal}>
               <Text style={styles.btnModalText}>Use Balance</Text>
             </Button>
-            <TouchableOpacity style={styles.cancelModal}  onPress={hideModal}>
-              <Text style={styles.cancelModalText}>
-                Cancel
-              </Text>
+            <TouchableOpacity style={styles.cancelModal} onPress={hideModal}>
+              <Text style={styles.cancelModalText}>Cancel</Text>
             </TouchableOpacity>
           </Modal>
         </>
