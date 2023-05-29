@@ -29,6 +29,7 @@
     "react": "17.0.2",
     "react-devtools": "^4.24.6",
     "react-native": "0.68.1",
+    "react-native-easebuzz-kit": "file:react-native-easebuzz-kit-1.0.0.tgz",
     "react-native-event-source": "^1.1.0",
     "react-native-gesture-handler": "^2.4.1",
     "react-native-image-picker": "^4.10.1",
