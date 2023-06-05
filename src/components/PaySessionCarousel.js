@@ -86,22 +86,6 @@ const PaySessionCarousel = ({
             setAmount(item.price);
             setSessions(item.sessions);
             dispatch(setSessionType('persession'));
-            try {
-              console.log('callingpayment');
-              const result = await axios.post(
-                STRIX_URL + '/api/razorpay/createOrder',
-                {
-                  amount: item.price * 100,
-                  currency: 'INR',
-                },
-              );
-              console.log(result, '<<< thisisresultdata');
-              const {amount, id, currency} = result.data;
-              setOrderId(id);
-            } catch (err) {
-              alert(err);
-              console.log('callingpaymen et');
-            }
           }}
           style={styles.btnCarousel}>
           <Text style={styles.btnCarouselText}>Buy Now</Text>

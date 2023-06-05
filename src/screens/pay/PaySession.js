@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -25,6 +25,8 @@ import {postPurchaseAsync} from '../../store/services/payServices';
 import {postNotificationAsync} from '../../store/services/notificationservices';
 // import {UserJoined} from 'agora-rn-uikit/src/Reducer';
 import {updateSessionsAsync} from '../../store/services/userServices';
+import {STRIX_URL, getUserByIdAsync} from '../../store/services/services';
+import {useFocusEffect} from '@react-navigation/native';
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
@@ -43,6 +45,12 @@ export default function PaySession({navigation}) {
   const mobile = useSelector(state => state.user.mobile);
   const userId = useSelector(state => state.user.userId);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(getUserByIdAsync({id: userId, dispatch: dispatch}));
+    }, []),
+  );
+
   const data = [
     {
       title: 'Prime Pack',
@@ -50,18 +58,6 @@ export default function PaySession({navigation}) {
       mins: 60,
       price: 400,
     },
-    // {
-    //   title: 'Trio Pack',
-    //   sessions: 3,
-    //   mins: 180,
-    //   price: 3600,
-    // },
-    // {
-    //   title: 'Quinary Pack',
-    //   sessions: 5,
-    //   mins: 300,
-    //   price: 6000,
-    // },
   ];
 
   const availSessionUpdater = () => {
@@ -89,6 +85,7 @@ export default function PaySession({navigation}) {
       userId: userId,
       mobile: mobile,
       email: 'bettertalk@gmail.com',
+      session: parseInt(availSessions) + parseInt(sessions),
     });
 
     var requestOptions = {
@@ -98,11 +95,12 @@ export default function PaySession({navigation}) {
       redirect: 'follow',
     };
 
-    fetch('https://bettertalk.onrender.com/api/easepay', requestOptions)
+    fetch(STRIX_URL + '/api/easepay', requestOptions)
       .then(response => response.text())
       .then(result => {
         let data = JSON.parse(result);
         console.log(data, '<<<<thisisdata');
+        setModalVisible(false);
         if (data.status) navigation.navigate('EaseBuzz', {data: data.data});
       })
       .catch(error => console.log('error', error));
@@ -216,29 +214,29 @@ export default function PaySession({navigation}) {
                 uppercase={false}
                 loading={false}
                 onPress={() => {
-                  var options = {
-                    description: 'Credits towards consultation',
-                    currency: 'INR',
-                    // key: 'NECwcvSWo2wmzrIZYxR6GgZD',
-                    key: 'rzp_live_gdgVvyvbg35IvZ',
-                    amount: amount * 100,
-                    // amount: 1,
-                    name: 'Better Talk',
-                    order_id: orderId,
-                    prefill: {
-                      email: 'test.test@test.com',
-                      contact: mobile,
-                      name: name,
-                    },
-                    theme: {color: '#056AD0'},
-                  };
-                  setModalVisible(false);
+                  // var options = {
+                  //   description: 'Credits towards consultation',
+                  //   currency: 'INR',
+                  //   // key: 'NECwcvSWo2wmzrIZYxR6GgZD',
+                  //   key: 'rzp_live_gdgVvyvbg35IvZ',
+                  //   amount: amount * 100,
+                  //   // amount: 1,
+                  //   name: 'Better Talk',
+                  //   order_id: orderId,
+                  //   prefill: {
+                  //     email: 'test.test@test.com',
+                  //     contact: mobile,
+                  //     name: name,
+                  //   },
+                  //   theme: {color: '#056AD0'},
+                  // };
+                  // setModalVisible(false);
                   easyBuzzPay();
                   // RazorpayCheckout.open(options)
                   //   .then(data => {
                   //     // handle success
                   //     //alert(`Success: ${data.razorpay_payment_id}`);
-                  availSessionUpdater();
+                  // availSessionUpdater();
                   //     dispatch(
                   //       postNotificationAsync({
                   //         id: userId,

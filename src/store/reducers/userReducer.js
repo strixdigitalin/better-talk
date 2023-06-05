@@ -68,6 +68,7 @@ export const userSlice = createSlice({
       };
     },
     setMobileNumber: (state, action) => {
+      console.log('mobile', action.payload, '<<<thisismobie');
       return {
         ...state,
         mobile: action.payload,

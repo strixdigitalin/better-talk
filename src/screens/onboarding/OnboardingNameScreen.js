@@ -16,11 +16,13 @@ import {setName} from '../../store/reducers/userReducer';
 import {setLoaded} from '../../store/reducers/appReducer';
 import {useDispatch} from 'react-redux';
 import {Header} from '@react-navigation/stack';
+import {useSelector} from 'react-redux';
 import {getDoctorsAsync} from '../../store/services/services';
 
 const windowHeight = Dimensions.get('window').height;
 
 const OnboardingNameScreen = ({navigation}) => {
+  const mobile = useSelector(state => state.user.mobile);
   const dispatch = useDispatch();
   const [text, setText] = useState('');
   const [visible, setVisible] = useState(false);
@@ -34,6 +36,7 @@ const OnboardingNameScreen = ({navigation}) => {
       dispatch(setLoaded(true));
     }
   };
+  console.log('mobile<<<<<,', mobile);
 
   const onNavigate = () => {
     if (text.length === 0) {

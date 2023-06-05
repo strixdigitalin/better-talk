@@ -681,6 +681,44 @@ function MainApp({navigation}) {
           ),
         }}
       />
+      {/* <Stack.Screen
+        name="EasePay"
+        component={EasePay}
+        options={{
+          headerLeft: () => <BackButton />,
+          headerTitle: () => (
+            <View>
+              <Text
+                style={{
+                  fontFamily: 'Inter-Medium',
+                  fontSize: 18,
+                  lineHeight: 26,
+                  color: '#33475B',
+                }}>
+                {name}
+              </Text>
+            </View>
+          ),
+          headerRight: () => (
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                marginRight: 30,
+                width: 70,
+                justifyContent: 'space-between',
+              }}>
+              <MaterialCommunityIcons
+                name="video"
+                size={24}
+                color="#056AD0"
+                onPress={() => {}}
+              />
+              <Icon name="call" size={24} color="#056AD0" />
+            </View>
+          ),
+        }}
+      /> */}
       <Stack.Screen
         name="StartAppointment"
         component={StartAppointmentScreen}
@@ -886,7 +924,7 @@ function MainApp({navigation}) {
                   lineHeight: 26,
                   color: '#33475B',
                 }}>
-                Available Doctors
+                Payment
               </Text>
             </View>
           ),

@@ -74,7 +74,7 @@ export default function LoginScreen({navigation}) {
             sendOtp();
           }}
           style={styles.btnOnboard}>
-          <Text style={styles.btnText}>Send OTP</Text>
+          <Text style={styles.btnText}>Send OTP2</Text>
         </Button>
       </View>
       <Image source={loginvecgraphic2} style={styles.imageBG2} />
