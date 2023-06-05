@@ -64,6 +64,7 @@ import {
 } from '../store/reducers/payReducer';
 import moment from 'moment';
 import {appointMentStarted} from '../store/services/services';
+import EaseBuzz from '../screens/pay/EaseBuzz';
 
 const Stack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -854,6 +855,26 @@ function MainApp({navigation}) {
       <Stack.Screen
         name="AvailableDoctors"
         component={AvailableDoctorsScreen}
+        options={{
+          headerLeft: () => <BackButton />,
+          headerTitle: () => (
+            <View>
+              <Text
+                style={{
+                  fontFamily: 'Inter-Medium',
+                  fontSize: 18,
+                  lineHeight: 26,
+                  color: '#33475B',
+                }}>
+                Available Doctors
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="EaseBuzz"
+        component={EaseBuzz}
         options={{
           headerLeft: () => <BackButton />,
           headerTitle: () => (

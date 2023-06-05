@@ -78,6 +78,36 @@ export default function PaySession({navigation}) {
     );
   };
 
+  const easyBuzzPay = () => {
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+    console.log(mobile, '<<<thisispayload');
+    // return null;
+    var raw = JSON.stringify({
+      amount: 500,
+      name: name,
+      userId: userId,
+      mobile: mobile,
+      email: 'bettertalk@gmail.com',
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+
+    fetch('https://bettertalk.onrender.com/api/easepay', requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        let data = JSON.parse(result);
+        console.log(data, '<<<<thisisdata');
+        if (data.status) navigation.navigate('EaseBuzz', {data: data.data});
+      })
+      .catch(error => console.log('error', error));
+  };
+
   return (
     <View style={styles.rootContainer}>
       <Divider style={{marginTop: 10}} />
@@ -203,29 +233,30 @@ export default function PaySession({navigation}) {
                     theme: {color: '#056AD0'},
                   };
                   setModalVisible(false);
-                  RazorpayCheckout.open(options)
-                    .then(data => {
-                      // handle success
-                      //alert(`Success: ${data.razorpay_payment_id}`);
-                      availSessionUpdater();
-                      dispatch(
-                        postNotificationAsync({
-                          id: userId,
-                          // content: amount,
-                          content: 1,
-                          type: 'payment',
-                        }),
-                      );
-                      if (chatOngoing) {
-                        navigation.navigate('MyHome', {screen: 'ChatDoctor'});
-                      } else {
-                        navigation.navigate('MyHome', {screen: 'DoctorsList'});
-                      }
-                    })
-                    .catch(error => {
-                      // handle failure
-                      alert(`Error: ${error.code} | ${error.description}`);
-                    });
+                  easyBuzzPay();
+                  // RazorpayCheckout.open(options)
+                  //   .then(data => {
+                  //     // handle success
+                  //     //alert(`Success: ${data.razorpay_payment_id}`);
+                  availSessionUpdater();
+                  //     dispatch(
+                  //       postNotificationAsync({
+                  //         id: userId,
+                  //         // content: amount,
+                  //         content: 1,
+                  //         type: 'payment',
+                  //       }),
+                  //     );
+                  //     if (chatOngoing) {
+                  //       navigation.navigate('MyHome', {screen: 'ChatDoctor'});
+                  //     } else {
+                  //       navigation.navigate('MyHome', {screen: 'DoctorsList'});
+                  //     }
+                  //   })
+                  //   .catch(error => {
+                  //     // handle failure
+                  //     alert(`Error: ${error.code} | ${error.description}`);
+                  //   });
                 }}
                 style={styles.btnPay}>
                 <Text style={styles.btnText}>Proceed To Pay</Text>

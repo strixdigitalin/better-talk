@@ -22,6 +22,7 @@ import {
   setUpcomingApp,
   setImage,
   setSession,
+  setMobileNumber,
 } from '../reducers/userReducer';
 import {setAppointmentId} from '../reducers/chatReducer';
 import {useDispatch, useSelector} from 'react-redux';
@@ -73,8 +74,9 @@ export const getUserByIdAsync = createAsyncThunk(
         dispatch(setMedHistory(response.data.medHistory));
         //console.log(' getUserByIdAsync response: data', response.data.name);
         dispatch(setImage(response.data.profile));
-        dispatch(setName(response.data.name));
         dispatch(setSession(response.data.sessions));
+        dispatch(setName(response.data.name));
+        dispatch(setMobileNumber(response.data.mobile));
         // console.log(' getUserByIdAsync response: data', response.data.upcomingApp);
         dispatch(setUpcomingApp(response.data.upcomingApp));
         //console.log(' getUserByIdAsync response: data', response.data.location);
